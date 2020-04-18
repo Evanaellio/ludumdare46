@@ -12,10 +12,11 @@ const POINT_RADIUS = 10
 var path
 var target
 
+var stunned : bool = false 
+
 onready var navigation2D = get_tree().get_root().find_node("Navigation2D", true, false)
 onready var sound : AudioStreamPlayer2D = $Sound
 onready var tween : Tween = $DeathTween
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,8 +27,8 @@ func _ready():
 # Performed on each step
 func _process(_delta):
 
-	# Only do stuff if we have a current path
-	if path:
+	# Only do stuff if we have a current path and we are not stunned
+	if path and not stunned:
 
 		# The next point is the first member of the path array
 		var target = path[0]
@@ -80,3 +81,10 @@ func _on_HealthBar_death():
 
 func _on_DeathTween_tween_completed(object, key):
 	queue_free() # RIP le drone
+
+func _on_HealthBar_hit():
+	stunned = true
+	$StunnedTimer.start()
+
+func _on_StunnedTimer_timeout():
+	stunned = false

@@ -21,9 +21,16 @@ func _input(event):
 
 
 func _on_HitDetection_body_entered(body: Node2D):
+	
+	if body is RigidBody2D:
+		var impulse : Vector2 = 15 * (body.global_position - $ImpactDirection.global_position)
+		body.apply_central_impulse(impulse)
+		
+	
 	for child in body.get_children():
 		if child is HealthBar:
 			child.damage(20)
 			sound_player.play()
 			sounds.shuffle()
 			sound_player.stream = sounds.front()
+

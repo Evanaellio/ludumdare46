@@ -78,4 +78,7 @@ anims/attack_up = SubResource( 2 )
 [node name="HitDetection" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitDetection"]
+
+[node name="ImpactDirection" type="Position2D" parent="."]
+position = Vector2( -6.35138, -1.67083 )
 [connection signal="body_entered" from="HitDetection" to="." method="_on_HitDetection_body_entered"]

@@ -2,6 +2,7 @@ extends Node2D
 class_name HealthBar
 
 signal death
+signal hit
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -24,6 +25,7 @@ func _process(delta):
 func damage(amount):
 	health -= amount
 	progress.value = health
+	emit_signal("hit")
 	if health < amount:
 		progress.hide()
 		emit_signal("death")
