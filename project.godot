@@ -10,11 +10,17 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "Cable",
+"language": "GDScript",
+"path": "res://Prefabs/Cable/Cable.gd"
+}, {
+"base": "Node2D",
 "class": "HealthBar",
 "language": "GDScript",
 "path": "res://Prefabs/Drone/HealthBar.gd"
 } ]
 _global_script_class_icons={
+"Cable": "",
 "HealthBar": ""
 }
 
