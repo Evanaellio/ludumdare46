@@ -30,26 +30,26 @@ func _ready():
 func set_angle(angle):
 	if cos(angle) > cos(3*PI/8):
 		if sin(angle) > sin(PI/8):
-			get_node("CanvasLayer/Fusil").set_texture(texture9)
-		elif sin(angle) < sin(-PI/8):
 			get_node("CanvasLayer/Fusil").set_texture(texture3)
+		elif sin(angle) < sin(-PI/8):
+			get_node("CanvasLayer/Fusil").set_texture(texture9)
 		else:
 			get_node("CanvasLayer/Fusil").set_texture(texture6)
 	elif cos(angle) < cos(5*PI/8):
 		if sin(angle) > sin(PI/8):
-			get_node("CanvasLayer/Fusil").set_texture(texture7)
-		elif sin(angle) < sin(-PI/8):
 			get_node("CanvasLayer/Fusil").set_texture(texture1)
+		elif sin(angle) < sin(-PI/8):
+			get_node("CanvasLayer/Fusil").set_texture(texture7)
 		else:
 			get_node("CanvasLayer/Fusil").set_texture(texture4)
 	else:
 		if sin(angle) > 0:
-			get_node("CanvasLayer/Fusil").set_texture(texture8)
-		else:
 			get_node("CanvasLayer/Fusil").set_texture(texture2)
+		else:
+			get_node("CanvasLayer/Fusil").set_texture(texture8)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var position = get_local_mouse_position()
-	
+	var angle = get_local_mouse_position().angle()
+	set_angle(angle)
 	pass
