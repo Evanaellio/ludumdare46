@@ -18,6 +18,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0, 4 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitDetection/CollisionPolygon2D:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ PoolVector2Array( 0.0139542, -9.99487, 0.0161171, 8.17732, 9.93985, 8.47192, 9.70902, -9.91793 ), PoolVector2Array(  ) ]
+}
 
 [sub_resource type="Animation" id=2]
 resource_name = "attack_up"
@@ -34,9 +46,24 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 4, 8 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("HitDetection/CollisionPolygon2D:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ PoolVector2Array( 0.0139542, -9.99487, 0.0161171, 8.17732, 9.93985, 8.47192, 9.70902, -9.91793 ), PoolVector2Array(  ) ]
+}
 
 [node name="Keyboard" type="Node2D"]
 script = ExtResource( 2 )
+
+[node name="Sounds" type="AudioStreamPlayer2D" parent="."]
+bus = "SFX"
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 4.9532, -2.51412 )
@@ -47,3 +74,8 @@ frame = 8
 [node name="Animation" type="AnimationPlayer" parent="."]
 anims/attack_down = SubResource( 1 )
 anims/attack_up = SubResource( 2 )
+
+[node name="HitDetection" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitDetection"]
+[connection signal="body_entered" from="HitDetection" to="." method="_on_HitDetection_body_entered"]

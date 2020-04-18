@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/key1.wav-41d74257e700ba5c48f7f2ca0e3c0da4.sample"
+
+[deps]
+
+source_file="res://Prefabs/player/key1.wav"
+dest_files=[ "res://.import/key1.wav-41d74257e700ba5c48f7f2ca0e3c0da4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

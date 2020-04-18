@@ -12,6 +12,9 @@ var path
 var target
 
 onready var navigation2D = get_tree().get_root().find_node("Navigation2D", true, false)
+onready var sound : AudioStreamPlayer2D = $Sound
+onready var tween : Tween = $DeathTween
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -66,4 +69,13 @@ func _calculate_new_path():
 
 func chooseTarget():
 	target = get_tree().get_root().find_node("Player", true, false)
-	
+
+func _on_HealthBar_death():
+	sound.play()
+	tween.interpolate_property($Sprite, "scale",
+		Vector2(1, 1), Vector2(0, 0), 1,
+		Tween.TRANS_ELASTIC, Tween.EASE_IN_OUT)
+	tween.start()
+
+func _on_DeathTween_tween_completed(object, key):
+	queue_free() # RIP le drone
