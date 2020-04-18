@@ -1,10 +1,11 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/m5x7_64.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Prefabs/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/Spawner/Spawner.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/Map/tileset.png" type="Texture" id=5]
+[ext_resource path="res://PNJ/tourelle.tscn" type="PackedScene" id=6]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -454,4 +455,8 @@ position = Vector2( 119.476, 308.857 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0.0980392, 0.0588235, 0.0588235, 1 )
+
+[node name="Tourelle" parent="." instance=ExtResource( 6 )]
+position = Vector2( 409.661, 110.293 )
+
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

@@ -1,4 +1,5 @@
 extends RigidBody2D
+class_name Drone
 
 # Speed at which the drone  will move
 const MOVEMENT_SPEED = 50

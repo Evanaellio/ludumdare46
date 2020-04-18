@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Cable",
 "language": "GDScript",
 "path": "res://Prefabs/Cable/Cable.gd"
+}, {
+"base": "RigidBody2D",
+"class": "Drone",
+"language": "GDScript",
+"path": "res://Prefabs/Drone/Drone.gd"
 } ]
 _global_script_class_icons={
-"Cable": ""
+"Cable": "",
+"Drone": ""
 }
 
 [application]
