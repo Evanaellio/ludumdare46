@@ -23,7 +23,6 @@ visible = false
 polygon = PoolVector2Array( 24, 24, -24, 24, -24, -13, 24, -13 )
 
 [node name="Light2D2" type="Light2D" parent="."]
-visible = false
 texture = ExtResource( 3 )
 texture_scale = 2.0
 shadow_enabled = true
