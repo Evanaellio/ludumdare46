@@ -30,4 +30,4 @@ func _input(event):
 		animation.play("idle")
 
 func _physics_process(delta):
-	move_and_collide(dir)
+	move_and_collide(dir * 2)
