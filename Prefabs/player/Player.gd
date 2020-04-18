@@ -10,6 +10,8 @@ var dir_scale = 1
 var current_cable: Cable = null
 var cable_prefab = load("res://Prefabs/Cable/Cable.tscn")
 
+var in_range_items: Array
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -33,13 +35,32 @@ func _input(event):
 		animation.play("idle")
 	
 	if Input.is_action_just_pressed("Use"):
-		if current_cable == null:
-			current_cable = cable_prefab.instance()
-			current_cable.start_cable(position)
-			get_parent().add_child(current_cable)
-		else:
-			current_cable.end_cable()
-			current_cable = null
+		useItem()
 
 func _physics_process(delta):
 	move_and_collide(dir * 2)
+
+func _on_UseRangeDetection_body_entered(body):
+	if body is tourelle or body is ordiMere:
+		in_range_items.push_back(body)
+
+func _on_UseRangeDetection_body_exited(body):
+	if body is tourelle or body is ordiMere:
+		var id = in_range_items.find(body)
+		if id > -1:
+			in_range_items.remove(id)
+
+func useItem():	
+	if in_range_items.size() == 0:
+		pass
+		
+	var target = in_range_items.front()
+	
+	if target is tourelle and current_cable == null:
+			current_cable = cable_prefab.instance()
+			current_cable.start_cable(target.position)
+			get_parent().add_child(current_cable)
+
+	if target is ordiMere and current_cable != null:
+		current_cable.end_cable(target.position)
+		current_cable = null
