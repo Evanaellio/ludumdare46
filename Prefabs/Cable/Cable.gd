@@ -38,7 +38,12 @@ func start_cable(origin):
 	position = origin
 	building = true
 
-func end_cable():
+func end_cable(end_target):
+	var segment = segment_prefab.instance()
+	var dist_vec = player.position - (position + pending_segment.position)
+	segment.set_position(pending_segment.position + dist_vec.normalized() * 16)
+	add_child(segment)
+	segment.look_at(end_target)
 	building = false
 
 func next_segment(new_position: Vector2):
