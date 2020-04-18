@@ -5,7 +5,7 @@ const MOVEMENT_SPEED = 50
 
 # How close the drone  must be to a point in the
 # path before moving on to the next one
-const POINT_RADIUS = 5
+const POINT_RADIUS = 10
 
 # Path that the drone must follow - undefined by default
 var path
@@ -15,16 +15,12 @@ onready var navigation2D = get_tree().get_root().find_node("Navigation2D", true,
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	pass # Replace with function body.
+	chooseTarget()
+	_calculate_new_path()
 
 
 # Performed on each step
-func _process(delta):
-		
-	chooseTarget()
-	
-	_calculate_new_path()
+func _process(_delta):
 
 	# Only do stuff if we have a current path
 	if path:
@@ -37,8 +33,6 @@ func _process(delta):
 		direction = direction.normalized()
 
 		set_linear_velocity(direction  * MOVEMENT_SPEED)
-		
-	#	print_debug(direction)
 
 		# If we have reached the point...
 		if position.distance_to(target) < POINT_RADIUS:
@@ -49,6 +43,9 @@ func _process(delta):
 			# If we have no points left, remove path
 			if path.size() == 0:
 				path = null
+
+			chooseTarget()
+			_calculate_new_path()
 
 func _calculate_new_path():
 	
