@@ -2,7 +2,7 @@ extends RigidBody2D
 class_name Drone
 
 # Speed at which the drone  will move
-const MOVEMENT_SPEED = 50
+const MOVEMENT_SPEED = 5
 
 # How close the drone  must be to a point in the
 # path before moving on to the next one
@@ -13,19 +13,21 @@ var path
 var target
 
 var stunned : bool = false 
+var last_update: float = 0
 
-onready var navigation2D = get_tree().get_root().find_node("Navigation2D", true, false)
+var rng = RandomNumberGenerator.new()
+
+onready var navigation2D : Navigation2D = get_tree().get_root().find_node("Navigation2D", true, false)
 onready var sound : AudioStreamPlayer2D = $Sound
 onready var tween : Tween = $DeathTween
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	chooseTarget()
-	_calculate_new_path()
-
+	rng.randomize()
+	_chooseTarget()
 
 # Performed on each step
-func _process(_delta):
+func _integrate_forces(_state):
 
 	# Only do stuff if we have a current path and we are not stunned
 	if path and not stunned:
@@ -37,7 +39,7 @@ func _process(_delta):
 		var direction = target - position
 		direction = direction.normalized()
 
-		set_linear_velocity(direction  * MOVEMENT_SPEED)
+		apply_impulse(Vector2(0, 0), direction  * MOVEMENT_SPEED)
 
 		# If we have reached the point...
 		if position.distance_to(target) < POINT_RADIUS:
@@ -49,8 +51,19 @@ func _process(_delta):
 			if path.size() == 0:
 				path = null
 
-			chooseTarget()
-			_calculate_new_path()
+			_chooseTarget()
+
+func _process(delta):
+	if last_update > 2:
+		last_update = rng.randf_range(0, 1)
+
+		_chooseTarget()
+	
+		if path and not stunned:
+			var imp = (position - target.position).normalized().rotated(rng.randf_range(-0.5*PI, 0.5*PI))
+			apply_impulse(Vector2(0, 0), imp * MOVEMENT_SPEED * 10)
+	
+	last_update += delta
 
 func _calculate_new_path():
 	
@@ -58,7 +71,7 @@ func _calculate_new_path():
 		pass
 
 	# Finds path
-	var nextpath = navigation2D.get_simple_path (position, target.position)
+	var nextpath = navigation2D.get_simple_path(position, target.position)
 
 	# If we got a path...
 	if nextpath:
@@ -69,10 +82,13 @@ func _calculate_new_path():
 		# Sets the sidekick's path
 		path = nextpath
 
-func chooseTarget():
+func _chooseTarget():
 	target = get_tree().get_root().find_node("Player", true, false)
+	_calculate_new_path()
 
 func _on_HealthBar_death():
+	$Light2D.set_energy(0)
+	$StunnedTimer.stop()
 	sound.play()
 	tween.interpolate_property($Sprite, "scale",
 		Vector2(1, 1), Vector2(0, 0), 1,
@@ -84,7 +100,9 @@ func _on_DeathTween_tween_completed(object, key):
 
 func _on_HealthBar_hit():
 	stunned = true
+	$Light2D.set_energy(0.4)
 	$StunnedTimer.start()
 
 func _on_StunnedTimer_timeout():
+	$Light2D.set_energy(0.9)
 	stunned = false

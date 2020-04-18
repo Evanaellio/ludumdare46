@@ -34,10 +34,12 @@ texture_scale = 0.03
 color = Color( 0.721569, 0.117647, 0.0705882, 1 )
 energy = 0.9
 range_layer_max = 1
+shadow_enabled = true
 
 [node name="HealthBar" parent="." instance=ExtResource( 4 )]
 
 [node name="StunnedTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 [connection signal="tween_completed" from="DeathTween" to="." method="_on_DeathTween_tween_completed"]
 [connection signal="death" from="HealthBar" to="." method="_on_HealthBar_death"]
