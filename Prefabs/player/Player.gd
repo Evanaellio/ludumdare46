@@ -9,4 +9,4 @@ func _physics_process(delta):
 	dir.x = Input.get_action_strength("Right") - Input.get_action_strength("Left")
 	dir.y = Input.get_action_strength("Down") - Input.get_action_strength("Up")
 
-	move_and_collide(dir)
+	move_and_collide(dir * 2)
