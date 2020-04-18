@@ -22,7 +22,7 @@ var VolumeMusic:float = 0.0 setget set_volume_music
 var VolumeSFX:float = 0.0 setget set_volume_sfx
 var VolumeRange:float = 24 + 80
 #CONTROLS
-var Actions:Array = ["Right", "Left", "Up", "Down", "Jump"]
+var Actions:Array = ["Right", "Left", "Up", "Down", "Attack"]
 var ActionControls:Dictionary = {}
 #Localization
 onready var Language:String = TranslationServer.get_locale() setget set_language
