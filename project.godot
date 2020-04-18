@@ -18,10 +18,22 @@ _global_script_classes=[ {
 "class": "Drone",
 "language": "GDScript",
 "path": "res://Prefabs/Drone/Drone.gd"
+}, {
+"base": "StaticBody2D",
+"class": "ordiMere",
+"language": "GDScript",
+"path": "res://PNJ/ordiMère.gd"
+}, {
+"base": "Node2D",
+"class": "tourelle",
+"language": "GDScript",
+"path": "res://PNJ/tourelle.gd"
 } ]
 _global_script_class_icons={
 "Cable": "",
-"Drone": ""
+"Drone": "",
+"ordiMere": "",
+"tourelle": ""
 }
 
 [application]
