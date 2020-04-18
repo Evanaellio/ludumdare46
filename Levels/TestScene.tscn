@@ -413,6 +413,7 @@ Next_Scene = "res://TitleScreen/MainMenu.tscn"
 [node name="Navigation2D" type="Navigation2D" parent="."]
 
 [node name="TileMap - Ground" type="TileMap" parent="Navigation2D"]
+z_index = -1
 tile_set = SubResource( 34 )
 cell_size = Vector2( 16, 16 )
 format = 1
@@ -452,5 +453,5 @@ position = Vector2( 446.012, 222.967 )
 position = Vector2( 119.476, 308.857 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color( 0.196078, 0.117647, 0.117647, 1 )
+color = Color( 0.0980392, 0.0588235, 0.0588235, 1 )
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
