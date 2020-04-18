@@ -49,20 +49,23 @@ func set_angle(angle):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	set_angle(get_node("Base/Fusil").get_local_mouse_position().angle())
+	var drone_proche = trouver_ennemi_plus_proche()
+	if drone_proche != null:
+		set_angle(drone_proche.get_global_position().angle_to_point(get_node("Base/Fusil").get_global_position()))
+	else:
+		set_angle(-PI/2)
 	pass
 
-func trouver_ennemi_plus_proche(rayon):
-	var plus_petite_distance = rayon
+func trouver_ennemi_plus_proche():
+	var plus_petite_distance
 	var drone_plus_proche
 	# On itère à travers les nœuds enfants
-	for i in get_tree().get_root().get_children:
-		if i is RigidBody2D:
-			if i.filename == "res://Prefabs/Drone/Drone.tscn":
-				# On a trouvé une instance de Drone
-				if self.position.distance_squared_to(i.position) < plus_petite_distance:
-					plus_petite_distance = self.position.distance_squared_to(i.position)
-					drone_plus_proche = i
+	for i in get_node("../").get_children():
+		if i is Drone:
+			# On a trouvé une instance de Drone
+			if plus_petite_distance == null or self.position.distance_squared_to(i.position) < plus_petite_distance:
+				plus_petite_distance = self.position.distance_squared_to(i.position)
+				drone_plus_proche = i
 	# On va peut-être retourner NULL (aucune drone proche)
 	# et l'appelant doit le prendre en compte !
 	return drone_plus_proche
