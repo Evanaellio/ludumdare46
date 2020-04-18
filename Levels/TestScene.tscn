@@ -457,6 +457,5 @@ position = Vector2( 119.476, 308.857 )
 color = Color( 0.0980392, 0.0588235, 0.0588235, 1 )
 
 [node name="Tourelle" parent="." instance=ExtResource( 6 )]
-position = Vector2( 409.661, 110.293 )
-
+position = Vector2( 387.553, 103.425 )
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
