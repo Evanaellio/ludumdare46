@@ -15,6 +15,9 @@ Next_Scene = "res://TitleScreen/MainMenu.tscn"
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.662745, 1, 0.537255, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Button" type="Button" parent="CanvasLayer"]
 anchor_left = 0.5
@@ -27,6 +30,9 @@ margin_right = 80.7051
 margin_bottom = 8.32202
 custom_fonts/font = ExtResource( 2 )
 text = "GO BACK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer"]
 position = Vector2( 156.129, 131.574 )
