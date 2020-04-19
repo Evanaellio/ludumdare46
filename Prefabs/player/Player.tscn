@@ -78,7 +78,7 @@ hframes = 4
 position = Vector2( 6.68542, 3.22939 )
 
 [node name="TurretFabricator" type="Node2D" parent="HorizontalAxis"]
-position = Vector2( 23.4961, 0.341058 )
+position = Vector2( 29.1762, 0.656617 )
 script = ExtResource( 5 )
 player_node = NodePath("../..")
 

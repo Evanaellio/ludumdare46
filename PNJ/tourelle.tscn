@@ -51,7 +51,7 @@ texture = ExtResource( 3 )
 hframes = 8
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 16, 16, -16, 16, -16, 12, -12, 6, -12, -4, 12, -4, 12, 6, 16, 12 )
+polygon = PoolVector2Array( -9.77357, 7.55997, -9.77357, -3.37434, 10.1512, -2.96937, 10.3132, 7.31699 )
 
 [node name="Light" type="Light2D" parent="."]
 texture = ExtResource( 4 )
@@ -64,11 +64,11 @@ width = 1.0
 default_color = Color( 0, 1, 0, 1 )
 
 [node name="PlacementDetector" type="Area2D" parent="."]
-visible = false
 collision_mask = 0
 
 [node name="PlacementPolygon" type="CollisionPolygon2D" parent="PlacementDetector"]
-polygon = PoolVector2Array( 16.1512, 16.5006, -16.0038, 16.5816, -16, 12, -12, 6, -12, -4, 12, -4, 12, 6, 16, 12 )
+visible = false
+polygon = PoolVector2Array( 21.4905, 19.3042, -19.25, 18.8183, -18.845, -12.1218, 20.9235, -11.7978 )
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 anims/idle = SubResource( 1 )
