@@ -20,8 +20,8 @@ polygon = PoolVector2Array( 16, 16, -16, 16, -16, 12, -12, 6, -12, -4, 12, -4, 1
 
 [node name="Light2D2" type="Light2D" parent="."]
 texture = ExtResource( 4 )
-texture_scale = 0.5
-energy = 0.5
+texture_scale = 1.5
+energy = 0.6
 shadow_enabled = true
 
 [node name="Line2D" type="Line2D" parent="."]
