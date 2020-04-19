@@ -18,11 +18,18 @@ var cable_prefab = load("res://Prefabs/Cable/Cable.tscn")
 
 var in_range_items: Array
 
+signal death
+var dead = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_electronics(starting_electronics)
+	$HealthBar.connect("death", self, "_on_death")
 
-func _input(event):
+func _input(_event):
+	if dead:
+		return
+	
 	dir.x = Input.get_action_strength("Right") - Input.get_action_strength("Left")
 	dir.y = Input.get_action_strength("Down") - Input.get_action_strength("Up")
 	
@@ -43,7 +50,7 @@ func _input(event):
 	if Input.is_action_just_pressed("Use"):
 		useItem()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	move_and_collide(dir * 2)
 
 func _on_UseRangeDetection_body_entered(body):
@@ -82,3 +89,19 @@ func add_electronics(amount: int):
 
 func methodeQuiSertARienPlayer():
 	pass
+
+func _on_Regen_timeout():
+	if $HealthBar.current_health < $HealthBar.health:
+		$HealthBar.regen(2)
+
+func _on_death():
+	if dead:
+		return
+
+	dir = Vector2.ZERO
+	moving = false
+	animation.play("idle")
+
+	$RipSound.play()
+	dead = true
+	emit_signal("death")

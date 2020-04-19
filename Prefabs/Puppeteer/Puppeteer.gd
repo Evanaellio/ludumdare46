@@ -180,3 +180,6 @@ func _send_info():
 		emit_signal("enemy_count", killed_enemies, spawn_count + left)
 
 	emit_signal("time_to_next_wave", time_to_next_wave, current_wave_num)
+
+func _on_Player_death():
+	$Music.stop()

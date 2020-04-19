@@ -103,12 +103,20 @@ func _calculate_new_path():
 func _chooseTarget():
 	var plus_petite_distance
 	var ordi_plus_proche
+	var il_existe_des_ordi_en_vie = false
 	# On itère à travers les nœuds enfants
 	for i in get_node("../").get_children():
 		if i.has_method("methodeQuiSertARienOrdiMere"):
+			if i.health_bar.current_health > 0:
+				il_existe_des_ordi_en_vie = true
 			# On a trouvé une instance d'ordi mère
 			if plus_petite_distance == null or self.position.distance_to(i.position) < plus_petite_distance:
 				plus_petite_distance = self.position.distance_to(i.position)
+				ordi_plus_proche = i
+	# Si pas d'ordi => le player
+	if not il_existe_des_ordi_en_vie:
+		for i in get_node("../").get_children():
+			if i.has_method("methodeQuiSertARienPlayer") :
 				ordi_plus_proche = i
 	target = ordi_plus_proche
 	_calculate_new_path()
@@ -153,13 +161,22 @@ func _on_DeathTween_tween_step(object, key, elapsed, value):
 func trouver_ennemi_plus_proche(rayon):
 	var plus_petite_distance = rayon
 	var ennemi_plus_proche
+	var il_existe_des_ordi_en_vie = false
 	# On itère à travers les nœuds enfants
 	for i in get_node("../").get_children():
 		if i.has_method("methodeQuiSertARienOrdiMere") :
-			# On a trouvé une instance d'ennemi de drone
-			if self.position.distance_to(i.position) < plus_petite_distance:
-				plus_petite_distance = self.position.distance_to(i.position)
-				ennemi_plus_proche = i
+			if i.health_bar.current_health > 0:
+				il_existe_des_ordi_en_vie = true
+				# On a trouvé une instance d'ennemi de drone
+				if self.position.distance_to(i.position) < plus_petite_distance:
+					plus_petite_distance = self.position.distance_to(i.position)
+					ennemi_plus_proche = i
+	# Si pas d'ordi => le player
+	if not il_existe_des_ordi_en_vie:
+		for i in get_node("../").get_children():
+			if i.has_method("methodeQuiSertARienPlayer") :
+				if self.position.distance_to(i.position) < plus_petite_distance:
+					ennemi_plus_proche = i
 	# On va peut-être retourner NULL (aucun ennemi proche)
 	# et l'appelant doit le prendre en compte !
 	return ennemi_plus_proche
