@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Prefabs/Electronics/electronics.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=2]
 [ext_resource path="res://GUI/HUD/HUD.gd" type="Script" id=3]
 [ext_resource path="res://Prefabs/Drone/Drone.png" type="Texture" id=4]
+[ext_resource path="res://GUI/HUD/arrow.png" type="Texture" id=5]
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource( 3 )
@@ -60,3 +61,16 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Arrow" type="Node2D" parent="."]
+visible = false
+position = Vector2( 122.091, 55.6101 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="ArrowPic" type="TextureRect" parent="Arrow"]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 8.0
+margin_bottom = 8.89194
+texture = ExtResource( 5 )
+flip_h = true
