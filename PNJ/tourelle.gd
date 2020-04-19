@@ -86,5 +86,5 @@ func find_connected_ordis():
 func destroy_cables_to(ordi: ordiMere):
 	for cable in cables:
 		if cable.target == ordi:
-			cable.queue_free()
+			cable.destroy()
 			cables.remove(cables.find(cable))
