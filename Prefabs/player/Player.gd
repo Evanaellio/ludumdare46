@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Player
 
 onready var animation : AnimationPlayer = $Animation
 onready var h_axis : Node2D = $HorizontalAxis
