@@ -1,8 +1,10 @@
 extends RigidBody2D
 class_name Drone
 
-# Speed at which the drone  will move
-const MOVEMENT_SPEED = 5
+export(int) var speed = 5
+export(int) var health = 100
+
+signal dead
 
 # How close the drone  must be to a point in the
 # path before moving on to the next one
@@ -13,6 +15,7 @@ var path
 var target
 
 var stunned : bool = false 
+var dead : bool = false
 var last_update: float = 0
 
 var rng = RandomNumberGenerator.new()
@@ -23,6 +26,7 @@ onready var tween : Tween = $DeathTween
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$HealthBar.health = health
 	rng.randomize()
 	_chooseTarget()
 
@@ -39,7 +43,7 @@ func _integrate_forces(_state):
 		var direction = target - position
 		direction = direction.normalized()
 
-		apply_impulse(Vector2(0, 0), direction  * MOVEMENT_SPEED)
+		apply_impulse(Vector2(0, 0), direction * speed)
 
 		# If we have reached the point...
 		if position.distance_to(target) < POINT_RADIUS:
@@ -61,7 +65,7 @@ func _process(delta):
 	
 		if path and not stunned:
 			var imp = (position - target.position).normalized().rotated(rng.randf_range(-0.5*PI, 0.5*PI))
-			apply_impulse(Vector2(0, 0), imp * MOVEMENT_SPEED * 10)
+			apply_impulse(Vector2(0, 0), imp * speed * 10)
 	
 	last_update += delta
 
@@ -87,6 +91,9 @@ func _chooseTarget():
 	_calculate_new_path()
 
 func _on_HealthBar_death():
+	if dead == true:
+		return
+	dead = true
 	$Light2D.set_energy(0)
 	$StunnedTimer.stop()
 	sound.play()
@@ -94,6 +101,7 @@ func _on_HealthBar_death():
 		Vector2(1, 1), Vector2(0, 0), 1,
 		Tween.TRANS_ELASTIC, Tween.EASE_IN_OUT)
 	tween.start()
+	emit_signal("dead", self)
 
 func _on_DeathTween_tween_completed(object, key):
 	queue_free() # RIP le drone
