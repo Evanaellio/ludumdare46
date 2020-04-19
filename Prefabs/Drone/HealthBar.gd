@@ -8,6 +8,7 @@ signal hit
 # var a = 2
 # var b = "text"
 export(int) var health = 100
+var current_health
 
 onready var bar : Node2D = $CanvasLayer/Bar
 onready var progress : TextureProgress = $CanvasLayer/Bar/Position/Progress
@@ -15,7 +16,9 @@ onready var progress : TextureProgress = $CanvasLayer/Bar/Position/Progress
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	progress.value = health
+	current_health = health
+	progress.value = current_health
+	progress.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -23,9 +26,13 @@ func _process(delta):
 	bar.set_position(pos)
 	
 func damage(amount):
-	health -= amount
-	progress.value = health
+	current_health -= amount
+	progress.value = current_health
 	emit_signal("hit")
-	if health < amount:
+	
+	if current_health < health:
+		progress.show()
+	
+	if current_health <= 0:
 		progress.hide()
 		emit_signal("death")
