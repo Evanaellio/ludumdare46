@@ -54,8 +54,13 @@ func _process(delta):
 	var drone_proche = trouver_ennemi_plus_proche()
 	if drone_proche != null:
 		set_angle(drone_proche.get_global_position().angle_to_point(get_node("Base/Fusil").get_global_position()))
+		get_node("Line2D").clear_points()
+		get_node("Line2D").add_point(get_node(".").to_local(drone_proche.get_global_position()))
+		get_node("Line2D").add_point(get_node("Base/Fusil").get_position())
 	else:
 		set_angle(-PI/2)
+		get_node("Line2D").clear_points()
+	
 	pass
 
 func trouver_ennemi_plus_proche():
