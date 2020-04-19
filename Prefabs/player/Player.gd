@@ -45,11 +45,11 @@ func _physics_process(delta):
 	move_and_collide(dir * 2)
 
 func _on_UseRangeDetection_body_entered(body):
-	if body is tourelle or body is ordiMere:
+	if body.has_method("methodeQuiSertARienTourelle") or body.has_method("methodeQuiSertARienOrdiMere"):
 		in_range_items.push_back(body)
 
 func _on_UseRangeDetection_body_exited(body):
-	if body is tourelle or body is ordiMere:
+	if body.has_method("methodeQuiSertARienTourelle") or body.has_method("methodeQuiSertARienOrdiMere"):
 		var id = in_range_items.find(body)
 		if id > -1:
 			in_range_items.remove(id)
@@ -60,13 +60,13 @@ func useItem():
 		
 	var target = in_range_items.front()
 	
-	if target is tourelle and current_cable == null:
+	if target.has_method("methodeQuiSertARienTourelle") and current_cable == null:
 			current_cable = cable_prefab.instance()
 			current_cable.start_cable(target.position)
 			get_parent().add_child(current_cable)
 			connectingTourelle = target
 
-	if target is ordiMere and current_cable != null:
+	if target.has_method("methodeQuiSertARienOrdiMere") and current_cable != null:
 		connectingTourelle.add_cable(current_cable)
 		target.link_tourelle(connectingTourelle)
 		current_cable.end_cable(target)
