@@ -15,15 +15,15 @@ const WAVES = [
 	{
 		DRONE_EASY: 8, DRONE_MEDIUM: 2,
 	},
-	{
-		DRONE_EASY: 5, DRONE_MEDIUM: 10,
-	},
-	{
-		DRONE_EASY: 5, DRONE_MEDIUM: 10, DRONE_HARD: 2,
-	},
-	{
-		DRONE_EASY: 10, DRONE_MEDIUM: 10, DRONE_HARD: 5,
-	},
+ 	{
+ 		DRONE_EASY: 5, DRONE_MEDIUM: 10,
+ 	},
+ 	{
+ 		DRONE_EASY: 5, DRONE_MEDIUM: 10, DRONE_HARD: 2,
+ 	},
+ 	{
+ 		DRONE_EASY: 10, DRONE_MEDIUM: 10, DRONE_HARD: 5,
+ 	},
 ]
 
 const PARAMETERS = {
@@ -84,7 +84,7 @@ func end_of_wave():
 	current_wave.clear()
 	$SpawnTimer.stop()
 	
-	if current_wave_num == WAVES.size()-1:
+	if current_wave_num >= WAVES.size():
 		emit_signal("all_waves_completed", self, WAVES.size())
 		print_debug("All waves completed !")
 	else:
@@ -100,7 +100,7 @@ func next_wave():
 	spawn_count = 0
 
 	if current_wave_num >= WAVES.size():
-		pass
+		return
 
 	current_wave = WAVES[current_wave_num - 1]
 	

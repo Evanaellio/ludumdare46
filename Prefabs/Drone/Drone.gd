@@ -81,7 +81,7 @@ func _process(delta):
 func _calculate_new_path():
 	
 	if target == null:
-		pass
+		return
 
 	# Finds path
 	var nextpath = navigation2D.get_simple_path(position, target.position)

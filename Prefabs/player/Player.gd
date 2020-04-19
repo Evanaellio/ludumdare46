@@ -58,7 +58,7 @@ func _on_UseRangeDetection_body_exited(body):
 
 func useItem():	
 	if in_range_items.size() == 0:
-		pass
+		return
 		
 	var target = in_range_items.front()
 	
