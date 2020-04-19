@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Map/Tileset.tres" type="TileSet" id=2]
 [ext_resource path="res://Prefabs/player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/Spawner/Spawner.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GUI/WinLoseScreen/ecranGagnant.tscn" type="PackedScene" id=5]
 [ext_resource path="res://PNJ/ordiMère.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/Puppeteer/Puppeteer.tscn" type="PackedScene" id=8]
 [ext_resource path="res://GUI/HUD/HUD.tscn" type="PackedScene" id=9]
@@ -52,6 +53,9 @@ position = Vector2( -129.535, 1084.39 )
 
 [node name="HUDLayer" parent="." instance=ExtResource( 9 )]
 layer = 99
+
+[node name="écranGagnant" parent="." instance=ExtResource( 5 )]
 [connection signal="update_electronics" from="Player" to="HUDLayer" method="_on_Player_update_electronics"]
+[connection signal="all_waves_completed" from="Puppeteer" to="écranGagnant" method="_on_Puppeteer_all_waves_completed"]
 [connection signal="enemy_count" from="Puppeteer" to="HUDLayer" method="_on_Puppeteer_enemy_count"]
 [connection signal="time_to_next_wave" from="Puppeteer" to="HUDLayer" method="_on_Puppeteer_time_to_next_wave"]

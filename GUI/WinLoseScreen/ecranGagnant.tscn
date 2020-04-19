@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Assets/Images/YouWinB.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Images/YouWinG.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Images/YouWinR.png" type="Texture" id=3]
+[ext_resource path="res://GUI/WinLoseScreen/ecranGagnant.gd" type="Script" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), null ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), null ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 3 ), null ],
+"loop": true,
+"name": "default",
+"speed": 4.0
+} ]
+
+[node name="Node2D" type="CanvasLayer"]
+script = ExtResource( 4 )
+
+[node name="Control" type="Control" parent="."]
+margin_left = 160.0
+margin_top = 90.0
+margin_right = 320.0
+margin_bottom = 180.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="AnimatedSprite" parent="Control"]
+frames = SubResource( 1 )
+playing = true
+
+[node name="Sprite2" type="AnimatedSprite" parent="Control"]
+frames = SubResource( 2 )
+frame = 1
+playing = true
+
+[node name="Sprite3" type="AnimatedSprite" parent="Control"]
+frames = SubResource( 3 )
+playing = true
