@@ -9,6 +9,7 @@ var moving = false
 var dir_scale = 1
 
 var electronics = 0
+signal update_electronics
 
 var connectingTourelle: tourelle = null
 var current_cable: Cable = null
@@ -60,21 +61,23 @@ func useItem():
 		
 	var target = in_range_items.front()
 	
-	if target.has_method("methodeQuiSertARienTourelle") and current_cable == null:
-			current_cable = cable_prefab.instance()
-			current_cable.start_cable(target.position)
-			get_parent().add_child(current_cable)
-			connectingTourelle = target
-
-	if target.has_method("methodeQuiSertARienOrdiMere") and current_cable != null:
-		connectingTourelle.add_cable(current_cable)
-		target.link_tourelle(connectingTourelle)
-		current_cable.end_cable(target)
-		current_cable = null
-		connectingTourelle = null
+	if target != null:
+		if target.has_method("methodeQuiSertARienTourelle") and current_cable == null:
+				current_cable = cable_prefab.instance()
+				current_cable.start_cable(target.position)
+				get_parent().add_child(current_cable)
+				connectingTourelle = target
+	
+		if target.has_method("methodeQuiSertARienOrdiMere") and current_cable != null:
+			connectingTourelle.add_cable(current_cable)
+			target.link_tourelle(connectingTourelle)
+			current_cable.end_cable(target)
+			current_cable = null
+			connectingTourelle = null
 		
 func add_electronics(amount: int):
 	electronics += amount
+	emit_signal("update_electronics", electronics)
 
 func methodeQuiSertARienPlayer():
 	pass
