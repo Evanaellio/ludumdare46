@@ -16,10 +16,16 @@ func _ready():
 func _process(delta):
 	if get_node("HealthBar").health > 67:
 		get_node("2cran").play("oui",false)
+		$Light2D2.energy = 0.5
+		$Light2D2.color = Color(0, 1, 0)
 	elif get_node("HealthBar").health <= 67 and get_node("HealthBar").health > 33:
 		get_node("2cran").play("bof",false)
+		$Light2D2.energy = 0.5
+		$Light2D2.color = Color(1, 0.7, 0)
 	elif get_node("HealthBar").health <= 33 and get_node("HealthBar").health > 0:
 		get_node("2cran").play("non",false)
+		$Light2D2.energy = 0.5
+		$Light2D2.color = Color(1, 0, 0)
 	else:
 		get_node("2cran").play("mort",false)
 		$Light2D2.energy = 0.5
