@@ -36,3 +36,6 @@ func unlink_tourelle(t):
 	var id = connected_tourelles.find(t)
 	if id > -1:
 		connected_tourelles.remove(id)
+
+func methodeQuiSertARienOrdiMere():
+	pass

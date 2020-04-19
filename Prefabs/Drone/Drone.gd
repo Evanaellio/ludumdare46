@@ -118,7 +118,7 @@ func trouver_ennemi_plus_proche(rayon):
 	var ennemi_plus_proche
 	# On itère à travers les nœuds enfants
 	for i in get_node("../").get_children():
-		if i is ordiMere:
+		if i.has_method("methodeQuiSertARienPlayer") or i.has_method("methodeQuiSertARienOrdiMere") :
 			# On a trouvé une instance d'ennemi de drone
 			if self.position.distance_to(i.position) < plus_petite_distance:
 				plus_petite_distance = self.position.distance_to(i.position)
@@ -126,3 +126,6 @@ func trouver_ennemi_plus_proche(rayon):
 	# On va peut-être retourner NULL (aucun ennemi proche)
 	# et l'appelant doit le prendre en compte !
 	return ennemi_plus_proche
+
+func methodeQuiSertARienDrone():
+	pass

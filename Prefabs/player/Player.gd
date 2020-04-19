@@ -70,3 +70,6 @@ func useItem():
 		current_cable.end_cable(target)
 		current_cable = null
 		connectingTourelle = null
+
+func methodeQuiSertARienPlayer():
+	pass
