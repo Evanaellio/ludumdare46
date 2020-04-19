@@ -17,7 +17,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var health_percent : float = float(health_bar.current_health) / health_bar.health
-	print_debug(health_percent, health_bar.current_health, health_bar.health)
+
 	if health_percent > 0.67:
 		ecran.play("oui",false)
 		$Light2D2.energy = 0.5
