@@ -20,7 +20,7 @@ func _process(delta):
 		scale = scale.linear_interpolate(Vector2.ZERO, lerp_progress)
 
 func _on_Magnet_body_entered(body):
-	if not player and body is Player:
+	if not player and body.has_method("methodeQuiSertARienPlayer"):
 		player = body
 		$Tween.interpolate_property(self, "lerp_progress", 0.0, 1.0, 1,
 			Tween.TRANS_EXPO, Tween.EASE_IN)

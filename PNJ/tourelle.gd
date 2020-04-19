@@ -118,3 +118,6 @@ func destroy_cables_to(ordi: ordiMere):
 		if cable.target == ordi:
 			cable.destroy()
 			cables.remove(cables.find(cable))
+
+func methodeQuiSertARienTourelle():
+	pass

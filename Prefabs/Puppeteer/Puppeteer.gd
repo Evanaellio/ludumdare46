@@ -42,9 +42,9 @@ const WAVE_SPAWN_TIMER = 5
 const REST_TIMER = 5
 
 onready var enemy_prefabs = {
-    DRONE_EASY: load("res://Prefabs/Drone/Drone.tscn"),
-    DRONE_MEDIUM: load("res://Prefabs/Drone/Drone.tscn"),
-    DRONE_HARD: load("res://Prefabs/Drone/Drone.tscn"),
+	DRONE_EASY: load("res://Prefabs/Drone/Drone.tscn"),
+	DRONE_MEDIUM: load("res://Prefabs/Drone/Drone.tscn"),
+	DRONE_HARD: load("res://Prefabs/Drone/Drone.tscn"),
 }
 
 var spawners: Array
@@ -58,7 +58,7 @@ func _ready():
 	rng.randomize()
 
 	for child in get_parent().get_children():
-		if child is Spawner:
+		if child.has_method("methodeQuiSertARienSpawner"):
 			spawners.push_back(child)
 
 	next_wave()
