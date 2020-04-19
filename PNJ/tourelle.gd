@@ -55,7 +55,7 @@ func set_angle(angle):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var is_connected = not find_connected_ordis().empty()
-	$Light.enabled = is_connected
+	$Light.energy = 0.8 if is_connected else 0.3
 	
 	if build_mode:
 		can_build = $PlacementDetector.get_overlapping_bodies().empty()
@@ -73,11 +73,10 @@ func _process(delta):
 		else:
 			$Animation.play("idle")
 			get_node("Line2D").clear_points()
-		$Light.energy = 0.8
 	else:
+		$Animation.stop()
 		set_angle(PI/2)
 		get_node("Line2D").clear_points()
-		$Light.energy = 0.3
 		
 	if compteur == diviseurTrame:
 		compteur = 1
