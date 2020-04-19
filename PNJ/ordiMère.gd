@@ -9,6 +9,8 @@ var connected_tourelles: Array
 onready var health_bar = $HealthBar
 onready var ecran = $"2cran"
 
+var dead = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("2cran").play("oui",false)
@@ -35,6 +37,7 @@ func _process(delta):
 		$Light2D3.color = Color(1, 0, 0)
 	else:
 		ecran.play("mort",false)
+		dead()
 		$Light2D2.energy = 0.5
 		$Light2D3.energy = 0.5
 		$Light2D2.color = Color(0, 0, 1)
@@ -43,6 +46,12 @@ func _process(delta):
 			unlink_tourelle(t)
 			t.destroy_cables_to(self)
 	pass
+
+func dead():
+	if dead:
+		return
+	dead = true
+	$bsod.play()
 
 func link_tourelle(t):
 	connected_tourelles.push_back(t)
