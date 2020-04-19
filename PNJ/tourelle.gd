@@ -13,6 +13,8 @@ var texture7
 var texture8
 var texture9
 
+var boutDeCanon = Vector2(0, -1)
+
 var cables: Array
 var diviseurTrame = 1
 var compteur = 1
@@ -34,22 +36,38 @@ func set_angle(angle):
 	if cos(angle) > cos(3*PI/8):
 		if sin(angle) > sin(PI/8):
 			get_node("Base/Fusil").set_texture(texture3)
+			boutDeCanon[0] = 10
+			boutDeCanon[1] = -3
 		elif sin(angle) < sin(-PI/8):
 			get_node("Base/Fusil").set_texture(texture9)
+			boutDeCanon[0] = 9
+			boutDeCanon[1] = -13
 		else:
 			get_node("Base/Fusil").set_texture(texture6)
+			boutDeCanon[0] = 12
+			boutDeCanon[1] = -10
 	elif cos(angle) < cos(5*PI/8):
 		if sin(angle) > sin(PI/8):
 			get_node("Base/Fusil").set_texture(texture1)
+			boutDeCanon[0] = -10
+			boutDeCanon[1] = -3
 		elif sin(angle) < sin(-PI/8):
 			get_node("Base/Fusil").set_texture(texture7)
+			boutDeCanon[0] = -9
+			boutDeCanon[1] = -13
 		else:
 			get_node("Base/Fusil").set_texture(texture4)
+			boutDeCanon[0] = -12
+			boutDeCanon[1] = -10
 	else:
 		if sin(angle) > 0:
 			get_node("Base/Fusil").set_texture(texture2)
+			boutDeCanon[0] = 0
+			boutDeCanon[1] = -1
 		else:
 			get_node("Base/Fusil").set_texture(texture8)
+			boutDeCanon[0] = 0
+			boutDeCanon[1] = -15
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -58,11 +76,11 @@ func _process(delta):
 		set_angle(drone_proche.get_global_position().angle_to_point(get_node("Base/Fusil").get_global_position()))
 		get_node("Line2D").clear_points()
 		get_node("Line2D").add_point(get_node(".").to_local(drone_proche.get_global_position()))
-		get_node("Line2D").add_point(get_node("Base/Fusil").get_position())
+		get_node("Line2D").add_point(boutDeCanon)
 		if compteur == diviseurTrame:
 			drone_proche.get_node("HealthBar").damage(1)
 	else:
-		set_angle(-PI/2)
+		set_angle(PI/2)
 		get_node("Line2D").clear_points()
 	if compteur == diviseurTrame:
 		compteur = 1
