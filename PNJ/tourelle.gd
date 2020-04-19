@@ -13,6 +13,8 @@ var texture7
 var texture8
 var texture9
 
+var cables: Array
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	texture1 = preload("res://Assets/Images/tourelle-1.png")
@@ -69,3 +71,20 @@ func trouver_ennemi_plus_proche():
 	# On va peut-être retourner NULL (aucune drone proche)
 	# et l'appelant doit le prendre en compte !
 	return drone_plus_proche
+
+func add_cable(cable: Cable):
+	cables.push_back(cable)
+
+func find_connected_ordis():
+	var ordis: Array
+	for cable in cables:
+		var target: ordiMere = cable.target
+		if ordis.find(target) == -1:
+			ordis.push_back(target)
+	return ordis
+
+func destroy_cables_to(ordi: ordiMere):
+	for cable in cables:
+		if cable.target == ordi:
+			cable.queue_free()
+			cables.remove(cables.find(cable))

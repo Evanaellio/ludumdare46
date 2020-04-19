@@ -7,6 +7,7 @@ var dir = Vector2.ZERO
 var moving = false
 var dir_scale = 1
 
+var connectingTourelle: tourelle = null
 var current_cable: Cable = null
 var cable_prefab = load("res://Prefabs/Cable/Cable.tscn")
 
@@ -60,7 +61,11 @@ func useItem():
 			current_cable = cable_prefab.instance()
 			current_cable.start_cable(target.position)
 			get_parent().add_child(current_cable)
+			connectingTourelle = target
 
 	if target is ordiMere and current_cable != null:
-		current_cable.end_cable(target.position)
+		connectingTourelle.add_cable(current_cable)
+		target.link_tourelle(connectingTourelle)
+		current_cable.end_cable(target)
 		current_cable = null
+		connectingTourelle = null

@@ -5,6 +5,8 @@ class_name ordiMere
 # var a = 2
 # var b = "text"
 
+var connected_tourelles: Array
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_node("2cran").play("oui",false)
@@ -20,4 +22,15 @@ func _process(delta):
 		get_node("2cran").play("non",false)
 	else:
 		get_node("2cran").play("mort",false)
+		for t in connected_tourelles:
+			unlink_tourelle(t)
+			t.destroy_cables_to(self)
 	pass
+
+func link_tourelle(t):
+	connected_tourelles.push_back(t)
+
+func unlink_tourelle(t):
+	var id = connected_tourelles.find(t)
+	if id > -1:
+		connected_tourelles.remove(id)
