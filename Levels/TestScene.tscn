@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/m5x7_64.tres" type="DynamicFont" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Assets/Map/tileset.png" type="Texture" id=5]
 [ext_resource path="res://PNJ/tourelle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://PNJ/ordiMère.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Prefabs/Puppeteer/Puppeteer.tscn" type="PackedScene" id=8]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -448,10 +449,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Node2D" parent="." instance=ExtResource( 4 )]
+[node name="Spawner1" parent="." instance=ExtResource( 4 )]
 position = Vector2( 446.012, 222.967 )
 
-[node name="Node2D2" parent="." instance=ExtResource( 4 )]
+[node name="Spawner2" parent="." instance=ExtResource( 4 )]
 position = Vector2( 119.476, 308.857 )
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
@@ -465,4 +466,6 @@ position = Vector2( 442.789, 102.352 )
 
 [node name="Tourelle2" parent="." instance=ExtResource( 6 )]
 position = Vector2( 492.256, 160.547 )
+
+[node name="Puppeteer" parent="." instance=ExtResource( 8 )]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
