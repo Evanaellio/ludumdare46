@@ -73,9 +73,11 @@ func _process(delta):
 		else:
 			$Animation.play("idle")
 			get_node("Line2D").clear_points()
+		$Light2D2.energy = 0.8
 	else:
 		set_angle(PI/2)
 		get_node("Line2D").clear_points()
+		$Light2D2.energy = 0.3
 		
 	if compteur == diviseurTrame:
 		compteur = 1

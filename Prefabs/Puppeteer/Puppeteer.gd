@@ -1,8 +1,10 @@
 extends Node2D
 
 signal first_spawn
+signal enemy_count
 signal wave_completed
 signal all_waves_completed
+signal time_to_next_wave
 
 const DRONE_EASY = 0
 const DRONE_MEDIUM = 1
@@ -40,7 +42,7 @@ const PARAMETERS = {
 
 const WAVE_SPAWN_TIMER = 5
 
-const REST_TIMER = 5
+const REST_TIMER = 10
 
 onready var enemy_prefabs = {
 	DRONE_EASY: load("res://Prefabs/Drone/Drone.tscn"),
@@ -53,6 +55,7 @@ var current_wave: Dictionary
 var spawn_count: int = 0
 var current_wave_num: int = 0
 var alive_enemies: int = 0
+var killed_enemies: int = 0
 
 var rng = RandomNumberGenerator.new()
 
@@ -66,7 +69,9 @@ func _ready():
 	connect("wave_completed", $Music, "switch_to_calm")
 	connect("first_spawn", $Music, "combat")
 
-	next_wave()
+	$RestTimer.wait_time = REST_TIMER
+	$RestTimer.one_shot = true
+	$RestTimer.start()
 
 func spawn():
 	if current_wave.keys().size():
@@ -79,12 +84,13 @@ func spawn():
 				emit_signal("first_spawn")
 		else:
 			end_of_wave()
+	_send_info()
 
 func end_of_wave():
 	current_wave.clear()
 	$SpawnTimer.stop()
 	
-	if current_wave_num == WAVES.size()-1:
+	if current_wave_num >= WAVES.size():
 		emit_signal("all_waves_completed", self, WAVES.size())
 		print_debug("All waves completed !")
 	else:
@@ -94,15 +100,20 @@ func end_of_wave():
 		$RestTimer.one_shot = true
 		$RestTimer.start()
 
+	_send_info()
+
 func next_wave():
 	current_wave_num += 1
 	alive_enemies = 0
 	spawn_count = 0
+	killed_enemies = 0
 
-	if current_wave_num >= WAVES.size():
-		pass
+	if current_wave_num > WAVES.size():
+		return
 
 	current_wave = WAVES[current_wave_num - 1]
+
+	spawn()
 	
 	$SpawnTimer.wait_time = WAVE_SPAWN_TIMER
 	$SpawnTimer.start()
@@ -146,6 +157,26 @@ func _on_RestTimer_timeout():
 
 func _on_Enemy_Dead(enemy):
 	alive_enemies -= 1
+	killed_enemies += 1
+	_send_info()
 
 	if current_wave_num != 0 and alive_enemies <= 0 and current_wave.size() == 0:
 		end_of_wave()
+
+func _on_InfoTimer_timeout():
+	_send_info()
+	
+func _send_info():
+	var time_to_next_wave = $RestTimer.time_left
+	var left = 0
+	if time_to_next_wave > 0 and current_wave_num < WAVES.size():
+		var next_wave = WAVES[current_wave_num]
+		for typecount in next_wave.values():
+			left += typecount
+		emit_signal("enemy_count", 0, left)
+	else:
+		for typecount in current_wave.values():
+			left += typecount
+		emit_signal("enemy_count", killed_enemies, spawn_count + left)
+
+	emit_signal("time_to_next_wave", time_to_next_wave, current_wave_num)

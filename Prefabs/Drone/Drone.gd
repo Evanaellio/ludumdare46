@@ -18,6 +18,7 @@ var stunned : bool = false
 var dead : bool = false
 var last_update: float = 0
 
+
 var rng = RandomNumberGenerator.new()
 
 onready var navigation2D : Navigation2D = get_tree().get_root().find_node("Navigation2D", true, false)
@@ -72,7 +73,11 @@ func _process(delta):
 	var ennemi_proche = trouver_ennemi_plus_proche(48)
 	get_node("Line2D").clear_points()
 	if ennemi_proche != null:
-		get_node("Line2D").add_point(get_node(".").to_local(ennemi_proche.get_global_position()))
+		if ennemi_proche.has_method("methodeQuiSertARienOrdiMere"):
+			var vecteurHasard = Vector2(rng.randi_range(-8,8), rng.randi_range(15,23))
+			get_node("Line2D").add_point(get_node(".").to_local(ennemi_proche.get_global_position()+vecteurHasard))
+		else:
+			get_node("Line2D").add_point(get_node(".").to_local(ennemi_proche.get_global_position()))
 		get_node("Line2D").add_point(Vector2(0, 0))
 		ennemi_proche.get_node("HealthBar").damage(1)
 	
@@ -81,7 +86,7 @@ func _process(delta):
 func _calculate_new_path():
 	
 	if target == null:
-		pass
+		return
 
 	# Finds path
 	var nextpath = navigation2D.get_simple_path(position, target.position)
