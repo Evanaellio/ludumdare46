@@ -71,17 +71,22 @@ func set_angle(angle):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var drone_proche = trouver_ennemi_plus_proche(64)
-	if drone_proche != null:
-		set_angle(drone_proche.get_global_position().angle_to_point(get_node("Base/Fusil").get_global_position()))
-		get_node("Line2D").clear_points()
-		get_node("Line2D").add_point(get_node(".").to_local(drone_proche.get_global_position()))
-		get_node("Line2D").add_point(boutDeCanon)
-		if compteur == diviseurTrame:
-			drone_proche.get_node("HealthBar").damage(1)
+	if not find_connected_ordis().empty():
+		var drone_proche = trouver_ennemi_plus_proche(64)
+		if drone_proche != null:
+			set_angle(drone_proche.get_global_position().angle_to_point(get_node("Base/Fusil").get_global_position()))
+			get_node("Line2D").clear_points()
+			get_node("Line2D").add_point(get_node(".").to_local(drone_proche.get_global_position()))
+			get_node("Line2D").add_point(boutDeCanon)
+			if compteur == diviseurTrame:
+				drone_proche.get_node("HealthBar").damage(1)
+		else:
+			set_angle(PI/2)
+			get_node("Line2D").clear_points()
 	else:
 		set_angle(PI/2)
 		get_node("Line2D").clear_points()
+		
 	if compteur == diviseurTrame:
 		compteur = 1
 	else:
