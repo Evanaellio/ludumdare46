@@ -30,11 +30,6 @@ _global_script_classes=[ {
 "path": "res://Prefabs/player/Player.gd"
 }, {
 "base": "StaticBody2D",
-"class": "Spawner",
-"language": "GDScript",
-"path": "res://Prefabs/Spawner/Spawner.gd"
-}, {
-"base": "StaticBody2D",
 "class": "ordiMere",
 "language": "GDScript",
 "path": "res://PNJ/ordiMère.gd"
@@ -49,7 +44,6 @@ _global_script_class_icons={
 "Drone": "",
 "HealthBar": "",
 "Player": "",
-"Spawner": "",
 "ordiMere": "",
 "tourelle": ""
 }

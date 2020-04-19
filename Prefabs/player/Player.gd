@@ -75,3 +75,6 @@ func useItem():
 		
 func add_electronics(amount: int):
 	electronics += amount
+
+func methodeQuiSertARienPlayer():
+	pass
