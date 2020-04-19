@@ -37,3 +37,13 @@ func damage(amount):
 	if current_health <= 0:
 		progress.hide()
 		emit_signal("death")
+
+func regen(amount):
+	current_health += amount
+	progress.value = current_health
+	
+	if current_health < health:
+		progress.show()
+	
+	if current_health == health:
+		progress.hide()

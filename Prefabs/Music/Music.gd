@@ -23,6 +23,8 @@ func calm():
 func switch_to_calm(_a, _b, _c):
 	calm()
 
+func stop():
+	$Music.stop("Song")
 
 func _on_Timer_timeout():
 	$Music.fade_out("Song", "ambiant-bass")
