@@ -25,12 +25,12 @@ func _process(delta):
 		$Light2D3.color = Color(0, 1, 0)
 	elif health_percent <= 0.67 and health_percent > 0.33:
 		ecran.play("bof",false)
-		$Light2D2.energy = 0.8
+		$Light2D2.energy = 0.6
 		$Light2D2.color = Color(1, 0.7, 0)
 		$Light2D3.color = Color(1, 0.7, 0)
 	elif health_percent <= 0.33 and health_percent > 0:
 		ecran.play("non",false)
-		$Light2D2.energy = 0.7
+		$Light2D2.energy = 0.6
 		$Light2D2.color = Color(1, 0, 0)
 		$Light2D3.color = Color(1, 0, 0)
 	else:

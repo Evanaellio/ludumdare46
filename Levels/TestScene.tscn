@@ -474,3 +474,5 @@ position = Vector2( 492.256, 160.547 )
 layer = 99
 [connection signal="update_electronics" from="Player" to="HUDLayer" method="_on_Player_update_electronics"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+[connection signal="enemy_count" from="Puppeteer" to="HUDLayer" method="_on_Puppeteer_enemy_count"]
+[connection signal="time_to_next_wave" from="Puppeteer" to="HUDLayer" method="_on_Puppeteer_time_to_next_wave"]
