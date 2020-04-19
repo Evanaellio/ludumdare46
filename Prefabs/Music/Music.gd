@@ -11,7 +11,7 @@ func combat():
 	$Music.fade_in("Song", "piano")
 	$Music.fade_in("Song", "drums")
 	$Music.fade_in("Song", "combat-bass")
-	$Music.fade_out("Song", "ambiant-bass")
+	$Timer.start()
 
 func calm():
 	$Music.fade_out("Song", "lead")
@@ -22,3 +22,7 @@ func calm():
 
 func switch_to_calm(_a, _b, _c):
 	calm()
+
+
+func _on_Timer_timeout():
+	$Music.fade_out("Song", "ambiant-bass")

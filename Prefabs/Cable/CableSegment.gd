@@ -13,5 +13,5 @@ func destroy():
 		Tween.TRANS_SINE , Tween.EASE_OUT)
 	tween.start()
 
-func _on_DeathTween_tween_completed(object, key):
+func _on_DeathTween_tween_completed(_object, _key):
 	queue_free()

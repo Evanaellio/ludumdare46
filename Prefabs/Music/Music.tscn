@@ -23,26 +23,34 @@ script = ExtResource( 3 )
 tempo = 80
 bars = 8
 beats_in_bar = 4
-transition_beats = 2.0
+transition_beats = 4.0
 
 [node name="CoreContainer" type="Node" parent="Music/Song"]
 script = ExtResource( 4 )
 
 [node name="ambiant-bass" type="AudioStreamPlayer" parent="Music/Song/CoreContainer"]
 stream = ExtResource( 6 )
-volume_db = -6.0
+volume_db = -7.0
 
 [node name="drums" type="AudioStreamPlayer" parent="Music/Song/CoreContainer"]
 stream = ExtResource( 7 )
 
 [node name="lead" type="AudioStreamPlayer" parent="Music/Song/CoreContainer"]
 stream = ExtResource( 2 )
+volume_db = -3.0
 
 [node name="combat-bass" type="AudioStreamPlayer" parent="Music/Song/CoreContainer"]
 stream = ExtResource( 8 )
+volume_db = 1.0
 
 [node name="piano" type="AudioStreamPlayer" parent="Music/Song/CoreContainer"]
 stream = ExtResource( 9 )
+volume_db = -2.0
 
 [node name="ambiant" type="AudioStreamPlayer" parent="Music/Song/CoreContainer"]
 stream = ExtResource( 10 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
