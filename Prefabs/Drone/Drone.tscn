@@ -42,6 +42,7 @@ shadow_enabled = true
 wait_time = 0.5
 one_shot = true
 [connection signal="tween_completed" from="DeathTween" to="." method="_on_DeathTween_tween_completed"]
+[connection signal="tween_step" from="DeathTween" to="." method="_on_DeathTween_tween_step"]
 [connection signal="death" from="HealthBar" to="." method="_on_HealthBar_death"]
 [connection signal="hit" from="HealthBar" to="." method="_on_HealthBar_hit"]
 [connection signal="timeout" from="StunnedTimer" to="." method="_on_StunnedTimer_timeout"]

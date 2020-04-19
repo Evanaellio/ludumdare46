@@ -17,15 +17,14 @@ func _ready():
 func _process(delta):
 	if player:
 		global_position = global_position.linear_interpolate(player.global_position, lerp_progress)
-		scale = scale.linear_interpolate(Vector2(0.2, 0.2), lerp_progress)
+		scale = scale.linear_interpolate(Vector2.ZERO, lerp_progress)
 
 func _on_Magnet_body_entered(body):
-	if body is Player:
+	if not player and body is Player:
 		player = body
 		$Tween.interpolate_property(self, "lerp_progress", 0.0, 1.0, 1,
 			Tween.TRANS_EXPO, Tween.EASE_IN)
 		$Tween.start()
-
 
 func _on_Tween_tween_completed(object, key):
 	sound_player.play()

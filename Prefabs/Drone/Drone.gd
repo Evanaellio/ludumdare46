@@ -20,6 +20,8 @@ var rng = RandomNumberGenerator.new()
 onready var navigation2D : Navigation2D = get_tree().get_root().find_node("Navigation2D", true, false)
 onready var sound : AudioStreamPlayer2D = $Sound
 onready var tween : Tween = $DeathTween
+onready var electronics = load("res://Prefabs/Electronics/Electronics.tscn")
+var dropped_electronics = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -106,3 +108,15 @@ func _on_HealthBar_hit():
 func _on_StunnedTimer_timeout():
 	$Light2D.set_energy(0.9)
 	stunned = false
+
+func drop_electronics_once():
+	if not dropped_electronics:
+		var new_elec = electronics.instance()
+		get_parent().add_child(new_elec)
+		new_elec.global_position = global_position
+		dropped_electronics = true
+
+
+func _on_DeathTween_tween_step(object, key, elapsed, value):
+	if elapsed > 0.5:
+		drop_electronics_once()
