@@ -14,6 +14,8 @@ var texture8
 var texture9
 
 var cables: Array
+var diviseurTrame = 1
+var compteur = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -51,27 +53,32 @@ func set_angle(angle):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	var drone_proche = trouver_ennemi_plus_proche()
+	var drone_proche = trouver_ennemi_plus_proche(64)
 	if drone_proche != null:
 		set_angle(drone_proche.get_global_position().angle_to_point(get_node("Base/Fusil").get_global_position()))
 		get_node("Line2D").clear_points()
 		get_node("Line2D").add_point(get_node(".").to_local(drone_proche.get_global_position()))
 		get_node("Line2D").add_point(get_node("Base/Fusil").get_position())
+		if compteur == diviseurTrame:
+			drone_proche.get_node("HealthBar").damage(1)
 	else:
 		set_angle(-PI/2)
 		get_node("Line2D").clear_points()
-	
+	if compteur == diviseurTrame:
+		compteur = 1
+	else:
+		compteur = compteur + 1
 	pass
 
-func trouver_ennemi_plus_proche():
-	var plus_petite_distance
+func trouver_ennemi_plus_proche(rayon):
+	var plus_petite_distance = rayon
 	var drone_plus_proche
 	# On itère à travers les nœuds enfants
 	for i in get_node("../").get_children():
 		if i is Drone:
 			# On a trouvé une instance de Drone
-			if plus_petite_distance == null or self.position.distance_squared_to(i.position) < plus_petite_distance:
-				plus_petite_distance = self.position.distance_squared_to(i.position)
+			if self.position.distance_to(i.position) < plus_petite_distance:
+				plus_petite_distance = self.position.distance_to(i.position)
 				drone_plus_proche = i
 	# On va peut-être retourner NULL (aucune drone proche)
 	# et l'appelant doit le prendre en compte !
