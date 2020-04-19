@@ -68,6 +68,7 @@ func _process(delta):
 	if ennemi_proche != null:
 		get_node("Line2D").add_point(get_node(".").to_local(ennemi_proche.get_global_position()))
 		get_node("Line2D").add_point(Vector2(0, 0))
+		ennemi_proche.get_node("HealthBar").damage(1)
 	
 	last_update += delta
 
@@ -118,7 +119,7 @@ func trouver_ennemi_plus_proche(rayon):
 	var ennemi_plus_proche
 	# On itère à travers les nœuds enfants
 	for i in get_node("../").get_children():
-		if i.has_method("methodeQuiSertARienPlayer") or i.has_method("methodeQuiSertARienOrdiMere") :
+		if i.has_method("methodeQuiSertARienOrdiMere") :
 			# On a trouvé une instance d'ennemi de drone
 			if self.position.distance_to(i.position) < plus_petite_distance:
 				plus_petite_distance = self.position.distance_to(i.position)
