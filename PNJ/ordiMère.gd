@@ -22,6 +22,8 @@ func _process(delta):
 		get_node("2cran").play("non",false)
 	else:
 		get_node("2cran").play("mort",false)
+		$Light2D2.energy = 0.5
+		$Light2D2.color = Color(0, 0, 1)
 		for t in connected_tourelles:
 			unlink_tourelle(t)
 			t.destroy_cables_to(self)

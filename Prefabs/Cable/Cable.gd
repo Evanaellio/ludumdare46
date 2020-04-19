@@ -36,6 +36,9 @@ func _process(_delta):
 		if dist > THRESHOLD:
 			next_segment(pending_segment.position + dist_vec.normalized() * 16)
 
+	elif get_children().size() == 0:
+		queue_free()
+
 func start_cable(origin):
 	position = origin
 	building = true
@@ -56,3 +59,7 @@ func next_segment(new_position: Vector2):
 	segment.look_at(player.position)
 	previous_segment = pending_segment
 	pending_segment = segment
+
+func destroy():
+	for segment in get_children():
+		segment.destroy()
