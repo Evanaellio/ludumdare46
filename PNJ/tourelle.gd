@@ -98,7 +98,7 @@ func trouver_ennemi_plus_proche(rayon):
 	var drone_plus_proche
 	# On itère à travers les nœuds enfants
 	for i in get_node("../").get_children():
-		if i is Drone:
+		if i.has_method("methodeQuiSertARienDrone"):
 			# On a trouvé une instance de Drone
 			if self.position.distance_to(i.position) < plus_petite_distance:
 				plus_petite_distance = self.position.distance_to(i.position)

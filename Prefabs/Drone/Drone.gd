@@ -96,7 +96,16 @@ func _calculate_new_path():
 		path = nextpath
 
 func _chooseTarget():
-	target = get_tree().get_root().find_node("Player", true, false)
+	var plus_petite_distance
+	var ordi_plus_proche
+	# On itère à travers les nœuds enfants
+	for i in get_node("../").get_children():
+		if i.has_method("methodeQuiSertARienOrdiMere"):
+			# On a trouvé une instance d'ordi mère
+			if plus_petite_distance == null or self.position.distance_to(i.position) < plus_petite_distance:
+				plus_petite_distance = self.position.distance_to(i.position)
+				ordi_plus_proche = i
+	target = ordi_plus_proche
 	_calculate_new_path()
 
 func _on_HealthBar_death():
