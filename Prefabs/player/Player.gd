@@ -8,6 +8,8 @@ var dir = Vector2.ZERO
 var moving = false
 var dir_scale = 1
 
+var electronics = 0
+
 var connectingTourelle: tourelle = null
 var current_cable: Cable = null
 var cable_prefab = load("res://Prefabs/Cable/Cable.tscn")
@@ -70,3 +72,6 @@ func useItem():
 		current_cable.end_cable(target)
 		current_cable = null
 		connectingTourelle = null
+		
+func add_electronics(amount: int):
+	electronics += amount

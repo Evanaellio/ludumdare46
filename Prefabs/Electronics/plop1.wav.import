@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/plop1.wav-65c6e64357af724ec1b0778fb0886383.sample"
+
+[deps]
+
+source_file="res://Prefabs/Electronics/plop1.wav"
+dest_files=[ "res://.import/plop1.wav-65c6e64357af724ec1b0778fb0886383.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
