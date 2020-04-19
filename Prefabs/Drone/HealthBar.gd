@@ -17,6 +17,7 @@ onready var progress : TextureProgress = $CanvasLayer/Bar/Position/Progress
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	current_health = health
+	progress.max_value = health
 	progress.value = current_health
 	progress.hide()
 

@@ -28,8 +28,15 @@ texture_scale = 2.0
 shadow_enabled = true
 
 [node name="HealthBar" parent="." instance=ExtResource( 10 )]
+health = 1000
 
 [node name="Position" parent="HealthBar/CanvasLayer/Bar" index="0"]
 position = Vector2( 0, -30 )
+
+[node name="Progress" parent="HealthBar/CanvasLayer/Bar/Position" index="0"]
+margin_left = -26.0
+margin_top = 0.0
+margin_right = 26.0
+margin_bottom = 1.0
 
 [editable path="HealthBar"]
