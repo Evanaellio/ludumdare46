@@ -82,6 +82,11 @@ func _process(delta):
 		compteur = 1
 	else:
 		compteur = compteur + 1
+		
+	var pos = get_global_transform_with_canvas().get_origin()
+	$CanvasLayer/Node2D.set_position(pos)
+	$CanvasLayer/Node2D.visible = not is_connected
+
 	pass
 
 func trouver_ennemi_plus_proche(rayon):

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Assets/Images/tourelle-base.png" type="Texture" id=1]
 [ext_resource path="res://PNJ/tourelle.gd" type="Script" id=2]
 [ext_resource path="res://PNJ/turret_gun.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Images/spot.png" type="Texture" id=4]
+[ext_resource path="res://PNJ/pasdecourant.png" type="Texture" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "idle"
@@ -22,6 +23,22 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 1, 0, 7, 6, 7 ]
 }
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 41, 14 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 14, 41, 14 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 1.0
+} ]
+
 [node name="Tourelle" type="StaticBody2D"]
 script = ExtResource( 2 )
 
@@ -32,13 +49,11 @@ texture = ExtResource( 1 )
 position = Vector2( 0, -8 )
 texture = ExtResource( 3 )
 hframes = 8
-frame = 7
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 16, 16, -16, 16, -16, 12, -12, 6, -12, -4, 12, -4, 12, 6, 16, 12 )
 
 [node name="Light" type="Light2D" parent="."]
-enabled = false
 texture = ExtResource( 4 )
 texture_scale = 1.5
 energy = 0.6
@@ -57,3 +72,13 @@ polygon = PoolVector2Array( 16.1512, 16.5006, -16.0038, 16.5816, -16, 12, -12, 6
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 anims/idle = SubResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Node2D" type="Node2D" parent="CanvasLayer"]
+
+[node name="Sprite" type="AnimatedSprite" parent="CanvasLayer/Node2D"]
+position = Vector2( 0, -17.6014 )
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 4 )
+playing = true
