@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Levels/Level.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Fonts/m5x7_64.tres" type="DynamicFont" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://PNJ/tourelle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://PNJ/ordiMère.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Prefabs/Puppeteer/Puppeteer.tscn" type="PackedScene" id=8]
+[ext_resource path="res://GUI/HUD/HUD.tscn" type="PackedScene" id=9]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -468,4 +469,8 @@ position = Vector2( 442.789, 102.352 )
 position = Vector2( 492.256, 160.547 )
 
 [node name="Puppeteer" parent="." instance=ExtResource( 8 )]
+
+[node name="HUDLayer" parent="." instance=ExtResource( 9 )]
+layer = 99
+[connection signal="update_electronics" from="Player" to="HUDLayer" method="_on_Player_update_electronics"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

@@ -8,8 +8,9 @@ var dir = Vector2.ZERO
 var moving = false
 var dir_scale = 1
 
-var electronics = 0
-signal update_electronics
+export(int) var starting_electronics = 0
+var electronics : int
+signal update_electronics(nb_electronics)
 
 var connectingTourelle: tourelle = null
 var current_cable: Cable = null
@@ -19,7 +20,7 @@ var in_range_items: Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	add_electronics(starting_electronics)
 
 func _input(event):
 	dir.x = Input.get_action_strength("Right") - Input.get_action_strength("Left")

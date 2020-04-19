@@ -1,3 +1,30 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Prefabs/Electronics/electronics.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Fonts/m5x7_16.tres" type="DynamicFont" id=2]
+[ext_resource path="res://GUI/HUD/HUD.gd" type="Script" id=3]
 
 [node name="HUD" type="CanvasLayer"]
+script = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = 311.576
+margin_top = 170.034
+margin_right = 318.576
+margin_bottom = 178.034
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NbElectronics" type="Label" parent="."]
+margin_left = 276.0
+margin_top = 167.0
+margin_right = 310.0
+margin_bottom = 181.0
+custom_fonts/font = ExtResource( 2 )
+text = "99999"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
