@@ -63,7 +63,7 @@ func useItem():
 	var target = in_range_items.front()
 	
 	if target != null:
-		if target.has_method("methodeQuiSertARienTourelle") and current_cable == null:
+		if target.has_method("methodeQuiSertARienTourelle") and not target.build_mode and current_cable == null:
 				current_cable = cable_prefab.instance()
 				current_cable.start_cable(target.position)
 				get_parent().add_child(current_cable)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Prefabs/player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/player/player.png" type="Texture" id=2]
 [ext_resource path="res://Prefabs/player/Keyboard.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Assets/Images/spot.png" type="Texture" id=4]
+[ext_resource path="res://Prefabs/player/TurretFabricator.gd" type="Script" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 18.8944
@@ -44,6 +45,7 @@ height = 3.69491
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
+starting_electronics = 100
 
 [node name="UseRangeDetection" type="Area2D" parent="."]
 
@@ -73,16 +75,27 @@ hframes = 4
 [node name="Keyboard" parent="HorizontalAxis" instance=ExtResource( 3 )]
 position = Vector2( 6.68542, 3.22939 )
 
+[node name="TurretFabricator" type="Node2D" parent="HorizontalAxis"]
+position = Vector2( 23.4961, 0.341058 )
+script = ExtResource( 5 )
+player_node = NodePath("../..")
+
 [node name="Light2D" type="Light2D" parent="."]
 texture = ExtResource( 4 )
 texture_scale = 2.0
 energy = 0.5
 shadow_enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Light2D2" type="Light2D" parent="."]
 texture = ExtResource( 4 )
 texture_scale = 0.5
 energy = 0.5
 shadow_enabled = true
+__meta__ = {
+"_edit_lock_": true
+}
 [connection signal="body_entered" from="UseRangeDetection" to="." method="_on_UseRangeDetection_body_entered"]
 [connection signal="body_exited" from="UseRangeDetection" to="." method="_on_UseRangeDetection_body_exited"]
