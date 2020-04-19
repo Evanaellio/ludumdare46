@@ -42,6 +42,7 @@ func _on_Master_value_changed(value):
 	Settings.VolumeMaster = value/100
 	var player:AudioStreamPlayer = find_node("Master").get_node("AudioStreamPlayer")
 	player.stream = preLoad.snd_TestBeep
+	player.volume_db = -10
 	player.play()
 
 func _on_Music_value_changed(value):
@@ -50,6 +51,7 @@ func _on_Music_value_changed(value):
 	Settings.VolumeMusic = value/100
 	var player:AudioStreamPlayer = find_node("Music").get_node("AudioStreamPlayer")
 	player.stream = preLoad.snd_TestBeep
+	player.volume_db = -10
 	player.play()
 
 func _on_SFX_value_changed(value):
@@ -58,6 +60,7 @@ func _on_SFX_value_changed(value):
 	Settings.VolumeSFX = value/100
 	var player:AudioStreamPlayer = find_node("SFX").get_node("AudioStreamPlayer")
 	player.stream = preLoad.snd_TestBeep
+	player.volume_db = -10
 	player.play()
 
 func _on_Fullscreen_pressed():
