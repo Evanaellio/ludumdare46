@@ -63,6 +63,12 @@ func _process(delta):
 			var imp = (position - target.position).normalized().rotated(rng.randf_range(-0.5*PI, 0.5*PI))
 			apply_impulse(Vector2(0, 0), imp * MOVEMENT_SPEED * 10)
 	
+	var ennemi_proche = trouver_ennemi_plus_proche(48)
+	get_node("Line2D").clear_points()
+	if ennemi_proche != null:
+		get_node("Line2D").add_point(get_node(".").to_local(ennemi_proche.get_global_position()))
+		get_node("Line2D").add_point(Vector2(0, 0))
+	
 	last_update += delta
 
 func _calculate_new_path():
@@ -106,3 +112,17 @@ func _on_HealthBar_hit():
 func _on_StunnedTimer_timeout():
 	$Light2D.set_energy(0.9)
 	stunned = false
+
+func trouver_ennemi_plus_proche(rayon):
+	var plus_petite_distance = rayon
+	var ennemi_plus_proche
+	# On itère à travers les nœuds enfants
+	for i in get_node("../").get_children():
+		if i is ordiMere:
+			# On a trouvé une instance d'ennemi de drone
+			if self.position.distance_to(i.position) < plus_petite_distance:
+				plus_petite_distance = self.position.distance_to(i.position)
+				ennemi_plus_proche = i
+	# On va peut-être retourner NULL (aucun ennemi proche)
+	# et l'appelant doit le prendre en compte !
+	return ennemi_plus_proche
