@@ -1,5 +1,6 @@
 extends Node2D
 
+signal first_spawn
 signal wave_completed
 signal all_waves_completed
 
@@ -49,6 +50,7 @@ onready var enemy_prefabs = {
 
 var spawners: Array
 var current_wave: Dictionary
+var spawn_count: int = 0
 var current_wave_num: int = 0
 var alive_enemies: int = 0
 
@@ -60,6 +62,9 @@ func _ready():
 	for child in get_parent().get_children():
 		if child.has_method("methodeQuiSertARienSpawner"):
 			spawners.push_back(child)
+	
+	connect("wave_completed", $Music, "switch_to_calm")
+	connect("first_spawn", $Music, "combat")
 
 	next_wave()
 
@@ -69,6 +74,9 @@ func spawn():
 		if type != -1:
 			var spawner = rng.randi_range(0, spawners.size() - 1)
 			do_spawn_instance(spawners[spawner], type)
+			spawn_count += 1
+			if spawn_count == 1:
+				emit_signal("first_spawn")
 		else:
 			end_of_wave()
 
@@ -89,6 +97,7 @@ func end_of_wave():
 func next_wave():
 	current_wave_num += 1
 	alive_enemies = 0
+	spawn_count = 0
 
 	if current_wave_num >= WAVES.size():
 		pass

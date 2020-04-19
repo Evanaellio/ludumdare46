@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ambiant-bass.ogg-47ff916e5f19b0f04658611538024426.oggstr"
+
+[deps]
+
+source_file="res://Prefabs/Music/ambiant-bass.ogg"
+dest_files=[ "res://.import/ambiant-bass.ogg-47ff916e5f19b0f04658611538024426.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
