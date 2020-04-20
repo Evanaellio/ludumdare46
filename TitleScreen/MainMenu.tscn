@@ -23,7 +23,7 @@ font_data = ExtResource( 2 )
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource( 1 )
-First_Level = "res://Levels/TestScene.tscn"
+First_Level = "res://Levels/TrueGame.tscn"
 
 [node name="BG" type="Panel" parent="."]
 pause_mode = 2
