@@ -67,6 +67,7 @@ func _ready():
 			spawners.push_back(child)
 	
 	connect("wave_completed", $Music, "switch_to_calm")
+	connect("all_waves_completed", $Music, "switch_to_victoire")
 	connect("first_spawn", $Music, "combat")
 
 	$RestTimer.wait_time = REST_TIMER

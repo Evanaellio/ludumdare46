@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/victoire-drums.ogg-069c3a717e43b7721869721213c1cd7d.oggstr"
+
+[deps]
+
+source_file="res://Prefabs/Music/victoire-drums.ogg"
+dest_files=[ "res://.import/victoire-drums.ogg-069c3a717e43b7721869721213c1cd7d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

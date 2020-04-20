@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/victoire-bass.ogg-a411114ea08ba4a0edca7617ff44beee.oggstr"
+
+[deps]
+
+source_file="res://Prefabs/Music/victoire-bass.ogg"
+dest_files=[ "res://.import/victoire-bass.ogg-a411114ea08ba4a0edca7617ff44beee.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
