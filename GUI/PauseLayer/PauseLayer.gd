@@ -37,7 +37,6 @@ func _on_Exit_pressed():
 
 func retranslate()->void:
 	find_node("Resume").text = tr("RESUME")
-	find_node("Restart").text = tr("RESTART")
 	find_node("Options").text = tr("OPTIONS")
 	find_node("MainMenu").text = tr("MAIN_MENU")
 	find_node("Exit").text = tr("EXIT")
