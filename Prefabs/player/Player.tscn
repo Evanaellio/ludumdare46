@@ -47,7 +47,7 @@ height = 3.69491
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
-starting_electronics = 100
+starting_electronics = 10
 
 [node name="UseRangeDetection" type="Area2D" parent="."]
 
