@@ -137,7 +137,7 @@ func _on_HealthBar_death():
 func _on_DeathTween_tween_completed(object, key):
 	queue_free() # RIP le drone
 
-func _on_HealthBar_hit():
+func _on_HealthBar_stun():
 	stunned = true
 	$Light2D.set_energy(0.4)
 	$StunnedTimer.start()
