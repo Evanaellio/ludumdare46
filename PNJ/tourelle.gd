@@ -87,9 +87,12 @@ func _process(delta):
 	var pos = get_global_transform_with_canvas().get_origin()
 	$CanvasLayer/Node2D.set_position(pos)
 	$CanvasLayer/Node2D.visible = not is_connected
-	$CanvasLayer/Node2D/Tuto.visible = player.tuto_tourelle
+	$CanvasLayer/Node2D/Sprite.visible = not build_mode
+	$CanvasLayer/Node2D/Tuto.visible = (player.tuto_tourelle and not build_mode) or (player.tuto_build and build_mode)
 	if player.tuto_tourelle:
-		$CanvasLayer/Node2D/Tuto.text = "PRESS '" + get_InputEvent_name(InputMap.get_action_list("Use")) + "' TO CONNECT"
+		$CanvasLayer/Node2D/Tuto.text = "PRESS '" + get_InputEvent_name(InputMap.get_action_list("Interact")) + "' TO CONNECT"
+	if build_mode and player.tuto_build:
+		$CanvasLayer/Node2D/Tuto.text = "PRESS '" + get_InputEvent_name(InputMap.get_action_list("Interact")) + "' TO BUILD"
 
 	pass
 
@@ -137,6 +140,7 @@ func accept_building():
 	$CollisionPolygon2D.disabled = false
 	$Base.modulate = Color(1, 1, 1, 1)
 	build_mode = false
+	player.tuto_build = false
 	
 func cancel_building():
 	queue_free()

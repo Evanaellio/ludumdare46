@@ -14,19 +14,19 @@ onready var player = get_node(player_node)
 
 func _input(event):
 	
-	if Input.is_action_just_pressed("Cancel") and turret:
-		turret.cancel_building()
-		turret = null
-	if Input.is_action_just_pressed("Build"):
+	if Input.is_action_just_pressed("Interact") and turret:
+		if turret.can_build:
+			var turret_pos = turret.global_position
+			remove_child(turret)
+			player.get_parent().add_child(turret)
+			turret.global_position = turret_pos
+			turret.accept_building()
+			player.add_electronics(-turret_cost)
+			turret = null
+	if Input.is_action_just_pressed("Turret"):
 		if turret:
-			if turret.can_build:
-				var turret_pos = turret.global_position
-				remove_child(turret)
-				player.get_parent().add_child(turret)
-				turret.global_position = turret_pos
-				turret.accept_building()
-				player.add_electronics(-turret_cost)
-				turret = null
+			turret.cancel_building()
+			turret = null
 		elif player.electronics >= turret_cost:
 			turret = turret_scene.instance()
 			add_child(turret)

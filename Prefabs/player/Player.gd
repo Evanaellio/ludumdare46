@@ -22,6 +22,7 @@ signal death
 var dead = false
 
 var tuto_tourelle = true
+var tuto_build = true
 var tuto_ordi = false
 
 # Called when the node enters the scene tree for the first time.
@@ -50,7 +51,7 @@ func _input(_event):
 		moving = false
 		animation.play("idle")
 	
-	if Input.is_action_just_pressed("Use"):
+	if Input.is_action_just_pressed("Interact"):
 		useItem()
 
 func _physics_process(_delta):
