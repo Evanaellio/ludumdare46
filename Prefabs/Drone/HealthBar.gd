@@ -3,6 +3,7 @@ class_name HealthBar
 
 signal death
 signal hit
+signal stun
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -37,6 +38,9 @@ func damage(amount):
 	if current_health <= 0:
 		progress.hide()
 		emit_signal("death")
+
+func stun():
+	emit_signal("stun")
 
 func regen(amount):
 	current_health += amount
