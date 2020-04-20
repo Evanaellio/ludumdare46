@@ -21,10 +21,10 @@ const WAVES = [
 		DRONE_EASY: 5, DRONE_MEDIUM: 10,
 	},
 	{
-		DRONE_EASY: 5, DRONE_MEDIUM: 10, DRONE_HARD: 2,
+		DRONE_EASY: 5, DRONE_MEDIUM: 10, DRONE_HARD: 3,
 	},
 	{
-		DRONE_EASY: 10, DRONE_MEDIUM: 10, DRONE_HARD: 5,
+		DRONE_EASY: 20, DRONE_MEDIUM: 20, DRONE_HARD: 10,
 	},
 ]
 
@@ -40,7 +40,7 @@ const PARAMETERS = {
 	},
 }
 
-const WAVE_SPAWN_TIMER = 5
+const WAVE_SPAWN_TIMER = [5, 5, 4, 3, 2]
 
 const REST_TIMER = 10
 
@@ -116,7 +116,7 @@ func next_wave():
 
 	spawn()
 	
-	$SpawnTimer.wait_time = WAVE_SPAWN_TIMER
+	$SpawnTimer.wait_time = WAVE_SPAWN_TIMER[current_wave_num - 1]
 	$SpawnTimer.start()
 
 func time_to_spawn():
