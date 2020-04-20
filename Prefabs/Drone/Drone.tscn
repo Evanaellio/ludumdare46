@@ -42,11 +42,17 @@ shadow_enabled = true
 wait_time = 0.5
 one_shot = true
 
+[node name="SlowedTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
 [node name="Line2D" type="Line2D" parent="."]
 width = 1.0
 default_color = Color( 1, 0, 0, 1 )
 [connection signal="tween_completed" from="DeathTween" to="." method="_on_DeathTween_tween_completed"]
 [connection signal="tween_step" from="DeathTween" to="." method="_on_DeathTween_tween_step"]
 [connection signal="death" from="HealthBar" to="." method="_on_HealthBar_death"]
+[connection signal="hit" from="HealthBar" to="." method="_on_HealthBar_hit"]
 [connection signal="stun" from="HealthBar" to="." method="_on_HealthBar_stun"]
 [connection signal="timeout" from="StunnedTimer" to="." method="_on_StunnedTimer_timeout"]
+[connection signal="timeout" from="SlowedTimer" to="." method="_on_SlowedTimer_timeout"]

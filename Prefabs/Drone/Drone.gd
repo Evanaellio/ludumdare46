@@ -1,7 +1,7 @@
 extends RigidBody2D
 class_name Drone
 
-export(int) var speed = 5
+export(float) var speed = 5.0
 export(int) var health = 100
 
 signal dead
@@ -13,10 +13,12 @@ const POINT_RADIUS = 10
 # Path that the drone must follow - undefined by default
 var path
 var target
+var ennemi_proche
 
 var stunned : bool = false 
 var dead : bool = false
 var last_update: float = 0
+var max_speed
 
 
 var rng = RandomNumberGenerator.new()
@@ -29,6 +31,7 @@ var dropped_electronics = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	max_speed = speed
 	$HealthBar.health = health
 	rng.randomize()
 	_chooseTarget()
@@ -37,7 +40,7 @@ func _ready():
 func _integrate_forces(_state):
 
 	# Only do stuff if we have a current path and we are not stunned
-	if path and not stunned:
+	if path and not stunned and not ennemi_proche:
 
 		# The next point is the first member of the path array
 		var target = path[0]
@@ -61,18 +64,13 @@ func _integrate_forces(_state):
 			_chooseTarget()
 
 func _process(delta):
-	if last_update > 2:
-		last_update = rng.randf_range(0, 1)
-
-		_chooseTarget()
+	if stunned:
+		get_node("Line2D").clear_points()
+		return
 	
-		if path and not stunned:
-			var imp = (position - target.position).normalized().rotated(rng.randf_range(-0.5*PI, 0.5*PI))
-			apply_impulse(Vector2(0, 0), imp * speed * 10)
-	
-	var ennemi_proche = trouver_ennemi_plus_proche(48)
+	trouver_ennemi_plus_proche(60)
 	get_node("Line2D").clear_points()
-	if ennemi_proche != null:
+	if ennemi_proche:	
 		if ennemi_proche.has_method("methodeQuiSertARienOrdiMere"):
 			var vecteurHasard = Vector2(rng.randi_range(-8,8), rng.randi_range(15,23))
 			get_node("Line2D").add_point(get_node(".").to_local(ennemi_proche.get_global_position()+vecteurHasard))
@@ -80,8 +78,17 @@ func _process(delta):
 			get_node("Line2D").add_point(get_node(".").to_local(ennemi_proche.get_global_position()))
 		get_node("Line2D").add_point(Vector2(0, 0))
 		ennemi_proche.get_node("HealthBar").damage(1)
+	else:
+		if last_update > 2:
+			last_update = rng.randf_range(0, 1)
 	
-	last_update += delta
+			_chooseTarget()
+		
+			if path:
+				var imp = (position - target.position).normalized().rotated(rng.randf_range(-0.5*PI, 0.5*PI))
+				apply_impulse(Vector2(0, 0), imp * speed * 10)
+	
+		last_update += delta
 
 func _calculate_new_path():
 	
@@ -146,6 +153,13 @@ func _on_StunnedTimer_timeout():
 	$Light2D.set_energy(0.9)
 	stunned = false
 
+func _on_HealthBar_hit():
+	$SlowedTimer.start()
+	speed = max_speed * 0.25
+
+func _on_SlowedTimer_timeout():
+	speed = max_speed
+
 func drop_electronics_once():
 	if not dropped_electronics:
 		var new_elec = electronics.instance()
@@ -160,7 +174,7 @@ func _on_DeathTween_tween_step(object, key, elapsed, value):
 
 func trouver_ennemi_plus_proche(rayon):
 	var plus_petite_distance = rayon
-	var ennemi_plus_proche
+	ennemi_proche = null
 	var il_existe_des_ordi_en_vie = false
 	# On itère à travers les nœuds enfants
 	for i in get_node("../").get_children():
@@ -170,16 +184,15 @@ func trouver_ennemi_plus_proche(rayon):
 				# On a trouvé une instance d'ennemi de drone
 				if self.position.distance_to(i.position) < plus_petite_distance:
 					plus_petite_distance = self.position.distance_to(i.position)
-					ennemi_plus_proche = i
+					ennemi_proche = i
 	# Si pas d'ordi => le player
 	if not il_existe_des_ordi_en_vie:
 		for i in get_node("../").get_children():
 			if i.has_method("methodeQuiSertARienPlayer") :
 				if self.position.distance_to(i.position) < plus_petite_distance:
-					ennemi_plus_proche = i
+					ennemi_proche = i
 	# On va peut-être retourner NULL (aucun ennemi proche)
 	# et l'appelant doit le prendre en compte !
-	return ennemi_plus_proche
 
 func methodeQuiSertARienDrone():
 	pass
