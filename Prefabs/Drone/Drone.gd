@@ -109,10 +109,10 @@ func _chooseTarget():
 		if i.has_method("methodeQuiSertARienOrdiMere"):
 			if i.health_bar.current_health > 0:
 				il_existe_des_ordi_en_vie = true
-			# On a trouvé une instance d'ordi mère
-			if plus_petite_distance == null or self.position.distance_to(i.position) < plus_petite_distance:
-				plus_petite_distance = self.position.distance_to(i.position)
-				ordi_plus_proche = i
+				# On a trouvé une instance d'ordi mère
+				if plus_petite_distance == null or self.position.distance_to(i.position) < plus_petite_distance:
+					plus_petite_distance = self.position.distance_to(i.position)
+					ordi_plus_proche = i
 	# Si pas d'ordi => le player
 	if not il_existe_des_ordi_en_vie:
 		for i in get_node("../").get_children():
