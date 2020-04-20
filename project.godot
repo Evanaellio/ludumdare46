@@ -56,9 +56,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="GameTemplate"
+config/name="Mainframe Overload"
 run/main_scene="res://Game/Game.tscn"
-config/icon="res://icon.png"
 
 [autoload]
 
