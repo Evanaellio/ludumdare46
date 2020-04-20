@@ -10,6 +10,7 @@ var build_mode = false
 var can_build = false
 
 onready var gun = $Base/Fusil
+onready var player = get_tree().get_root().find_node("Player", true, false)
 
 var color_ok = Color(0, 1, 0, 0.8)
 var color_ko = Color(1, 0, 0, 0.8)
@@ -86,6 +87,9 @@ func _process(delta):
 	var pos = get_global_transform_with_canvas().get_origin()
 	$CanvasLayer/Node2D.set_position(pos)
 	$CanvasLayer/Node2D.visible = not is_connected
+	$CanvasLayer/Node2D/Tuto.visible = player.tuto_tourelle
+	if player.tuto_tourelle:
+		$CanvasLayer/Node2D/Tuto.text = "PRESS '" + get_InputEvent_name(InputMap.get_action_list("Use")) + "' TO CONNECT"
 
 	pass
 
@@ -136,3 +140,16 @@ func accept_building():
 	
 func cancel_building():
 	queue_free()
+
+func get_InputEvent_name(input_array:Array)->String:
+	var text:String = ""
+	var joypad = Input.get_connected_joypads().size() > 0
+	for event in input_array:
+		if event is InputEventKey and not joypad:
+			text = event.as_text()
+		elif event is InputEventJoypadButton and joypad:
+			if Input.is_joy_known(event.device):
+				text = str(Input.get_joy_button_string(event.button_index))
+			else:
+				text = "Btn. " + str(event.button_index)
+	return text

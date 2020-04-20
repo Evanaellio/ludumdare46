@@ -30,13 +30,13 @@ const WAVES = [
 
 const PARAMETERS = {
 	DRONE_EASY: {
-		"speed": 4, "health": 100
+		"speed": 8, "health": 100
 	},
 	DRONE_MEDIUM: {
-		"speed": 8, "health": 200
+		"speed": 12, "health": 200
 	},
 	DRONE_HARD: {
-		"speed": 12, "health": 400
+		"speed": 18, "health": 400
 	},
 }
 

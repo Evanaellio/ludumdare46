@@ -56,12 +56,15 @@ stream = ExtResource( 10 )
 
 [node name="victoire-bass" type="AudioStreamPlayer" parent="Music/Song/CoreContainer"]
 stream = ExtResource( 12 )
+volume_db = -4.0
 
 [node name="victoire-drums" type="AudioStreamPlayer" parent="Music/Song/CoreContainer"]
 stream = ExtResource( 11 )
+volume_db = -2.0
 
 [node name="victoire-lead" type="AudioStreamPlayer" parent="Music/Song/CoreContainer"]
 stream = ExtResource( 14 )
+volume_db = -2.0
 
 [node name="victoire-piano" type="AudioStreamPlayer" parent="Music/Song/CoreContainer"]
 stream = ExtResource( 13 )
