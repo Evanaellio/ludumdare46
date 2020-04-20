@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/Images/tourelle-base.png" type="Texture" id=1]
 [ext_resource path="res://PNJ/tourelle.gd" type="Script" id=2]
 [ext_resource path="res://PNJ/turret_gun.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Images/spot.png" type="Texture" id=4]
 [ext_resource path="res://PNJ/pasdecourant.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Fonts/m5x7.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "idle"
@@ -38,6 +39,12 @@ animations = [ {
 "name": "default",
 "speed": 1.0
 } ]
+
+[sub_resource type="DynamicFont" id=5]
+size = 6
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 6 )
 
 [node name="Tourelle" type="StaticBody2D"]
 script = ExtResource( 2 )
@@ -81,5 +88,16 @@ anims/idle = SubResource( 1 )
 position = Vector2( 0, -17.6014 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 4 )
-frame = 1
 playing = true
+
+[node name="Tuto" type="Label" parent="CanvasLayer/Node2D"]
+margin_left = -41.1818
+margin_top = -12.6643
+margin_right = 42.8182
+margin_bottom = -1.66434
+custom_fonts/font = SubResource( 5 )
+text = "PRESS 'E' TO CONNECT"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

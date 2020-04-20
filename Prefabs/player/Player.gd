@@ -21,6 +21,9 @@ var in_range_items: Array
 signal death
 var dead = false
 
+var tuto_tourelle = true
+var tuto_ordi = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_electronics(starting_electronics)
@@ -75,6 +78,7 @@ func useItem():
 				current_cable.start_cable(target.position)
 				get_parent().add_child(current_cable)
 				connectingTourelle = target
+				tuto_ordi = tuto_tourelle
 	
 		if target.has_method("methodeQuiSertARienOrdiMere") and current_cable != null:
 			connectingTourelle.add_cable(current_cable)
@@ -82,6 +86,9 @@ func useItem():
 			current_cable.end_cable(target)
 			current_cable = null
 			connectingTourelle = null
+			tuto_ordi = false
+
+		tuto_tourelle = false
 		
 func add_electronics(amount: int):
 	electronics += amount

@@ -8,6 +8,7 @@ class_name ordiMere
 var connected_tourelles: Array
 onready var health_bar = $HealthBar
 onready var ecran = $"2cran"
+onready var player = get_tree().get_root().find_node("Player", true, false)
 
 var dead = false
 
@@ -45,6 +46,13 @@ func _process(delta):
 		for t in connected_tourelles:
 			unlink_tourelle(t)
 			t.destroy_cables_to(self)
+		
+	$CanvasLayer/Node2D.visible = player.tuto_ordi
+	if player.tuto_ordi:
+		var pos = get_global_transform_with_canvas().get_origin()
+		$CanvasLayer/Node2D.set_position(pos)
+		$CanvasLayer/Node2D/Tuto.text = "PRESS '" + get_InputEvent_name(InputMap.get_action_list("Use")) + "' TO CONNECT"
+
 	pass
 
 func dead():
@@ -63,3 +71,16 @@ func unlink_tourelle(t):
 
 func methodeQuiSertARienOrdiMere():
 	pass
+
+func get_InputEvent_name(input_array:Array)->String:
+	var text:String = ""
+	var joypad = Input.get_connected_joypads().size() > 0
+	for event in input_array:
+		if event is InputEventKey and not joypad:
+			text = event.as_text()
+		elif event is InputEventJoypadButton and joypad:
+			if Input.is_joy_known(event.device):
+				text = str(Input.get_joy_button_string(event.button_index))
+			else:
+				text = "Btn. " + str(event.button_index)
+	return text
