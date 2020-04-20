@@ -51,7 +51,7 @@ func _process(delta):
 	if player.tuto_ordi:
 		var pos = get_global_transform_with_canvas().get_origin()
 		$CanvasLayer/Node2D.set_position(pos)
-		$CanvasLayer/Node2D/Tuto.text = "PRESS '" + get_InputEvent_name(InputMap.get_action_list("Use")) + "' TO CONNECT"
+		$CanvasLayer/Node2D/Tuto.text = "PRESS '" + get_InputEvent_name(InputMap.get_action_list("Interact")) + "' TO CONNECT"
 
 	pass
 
